@@ -31,7 +31,7 @@
   "scripts": {
     "post-install-cmd": [
       "sed 's\/wp-blog-header\\.php/wp\\/wp-blog-header\\.php\/g' .\/wp\/index.php > .\/index.php",
-      "rm -rf ./wp/wp-content ./wp/readme.html ./wp/wp-config-sample.php"
+      "rm -rf ./wp/wp-content ./wp/readme.html"
     ]
   }
 }
