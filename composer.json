@@ -1,0 +1,37 @@
+{
+  "name": "webdeveric/wp-starter",
+  "authors": [
+    {
+      "name": "Eric King",
+      "email": "eric@webdeveric.com"
+    }
+  ],
+  "repositories":[  
+    {
+      "type": "git",
+      "url": "https://github.com/webdeveric/http-api-debug.git"
+    },
+    {
+      "type":"composer",
+      "url":"http://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "johnpbloch/wordpress": "4.4.0",
+    "webdeveric/http-api-debug": "dev-master",
+    "wpackagist-plugin/rest-api": "2.0-beta8",
+    "wpackagist-plugin/what-template-am-i-using": "0.2.0",
+    "wpackagist-plugin/recently-edited-content-widget": "0.3.2",
+    "wpackagist-plugin/get-post-content-shortcode": "0.3.2"
+  },
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "sed 's\/wp-blog-header\\.php/wp\\/wp-blog-header\\.php\/g' .\/wp\/index.php > .\/index.php",
+      "rm -rf ./wp/wp-content ./wp/readme.html ./wp/wp-config-sample.php"
+    ]
+  }
+}
