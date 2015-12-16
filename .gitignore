@@ -12,12 +12,7 @@ node_modules/
 /vendor/
 /wp/
 /wp-config.php
-/wp-content/uploads/
-/wp-content/blogs.dir/
-/wp-content/upgrade/*
-/wp-content/backup-db/*
-/wp-content/advanced-cache.php
-/wp-content/wp-cache-config.php
-/wp-content/cache/*
-/wp-content/cache/supercache/*
-/wp-content/themes/
+/wp-content/
+!/wp-content/mu-plugins/
+!/wp-content/index.html
+!/wp-content/plugins/index.html
