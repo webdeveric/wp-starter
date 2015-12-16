@@ -23,11 +23,25 @@ The included [composer.json](composer.json) file has an example of getting a plu
 
 ## Installation
 
+### Local development environment
+
+Install [Composer](https://getcomposer.org/) then run this from the project directory.
+
 ```bash
-composer install --prefer-dist --no-autoloader
+composer install
+mv ./wp-config.php.example ./wp-config.php
 ```
 
-### Deployment server: sample install script
+To use the `wp-config.php.example` file, you need to have the `WP_ENV` environment variable set to the file system path of your environment configuration file.
+An example `.env` file is included in this repo.
+
+If you're using Apache for local development, you can add this to your `.htaccess` file:
+
+```
+SetEnv WP_ENV /your/path/to/.env
+```
+
+### Deployment server
 
 This should get you started with your deployment script for Jenkins (or other deployment server).
 
@@ -40,9 +54,20 @@ source ~/.bashrc
 curl -sS https://getcomposer.org/installer | php
 
 # Install dependencies
-php composer.phar install --prefer-dist --no-autoloader
+php composer.phar install --no-dev --prefer-dist --no-interaction
 
-# Your custom deployment tasks go here.
+# Setup wp-config.php
+mv ./wp-config.php.example ./wp-config.php
+rm -f ./wp/wp-config-sample.php
+
+# Remove files that are not needed to run in the production environment
+find . -name ".git*" -exec rm -rf {} \;
+find . -iname "readme.{txt,md}" -exec rm -rf {} \;
+
+# Remove composer when done
+rm -f ./composer.phar
+
+# Your custom packaging and deployment tasks go here.
 ```
 
 ## Useful links
