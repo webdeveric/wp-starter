@@ -12,7 +12,6 @@ node_modules/
 /vendor/
 /wp/
 /wp-config.php
-/wp-content/
-!/wp-content/mu-plugins/
-!/wp-content/index.html
-!/wp-content/plugins/index.html
+/wp-content/plugins/**/*
+/wp-content/themes/**/*
+!/wp-content/**/index.html
