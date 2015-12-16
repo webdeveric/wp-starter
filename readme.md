@@ -51,22 +51,46 @@ This should get you started with your deployment script for Jenkins (or other de
 # set -x
 source ~/.bashrc
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No color
+
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
 
 # Install dependencies
 php composer.phar install --no-dev --prefer-dist --no-interaction
 
-# Setup wp-config.php
-mv ./wp-config-env.php ./wp-config.php
-rm -f ./wp/wp-config-sample.php
-
-# Remove files that are not needed to run in the production environment
-find . -name ".git*" -exec rm -rf {} \;
-find . -iname "readme.{txt,md}" -exec rm -rf {} \;
-
 # Remove composer when done
 rm -f ./composer.phar
+
+# Setup wp-config.php
+if [ -f ./wp-config.php ]; then
+  echo -e "${PURPLE}wp-config.php already exists${NC}"
+fi
+
+if [ -f ./wp-config-env.php ] && [ ! -f ./wp-config.php ]; then
+  echo -e "${YELLOW}Creating wp-config.php${NC}"
+  mv ./wp-config-env.php ./wp-config.php
+
+  if [ -f ./wp-config.php ]; then
+    echo -e "${GREEN}wp-config.php has been created${NC}"
+  fi
+fi
+
+if [ ! -f ./wp-config.php ]; then
+  echo -e "${RED}wp-config.php is missing${NC}"
+  exit 1
+fi
+
+# Remove files that are not needed to run in the production environment
+rm -f ./wp/wp-config-sample.php
+find . -name ".git*" -exec rm -rf {} \;
+find . -iname "readme.{txt,md}" -exec rm -rf {} \;
+echo -e "${BLUE}Clean up complete${NC}"
 
 # Your custom packaging and deployment tasks go here.
 ```
