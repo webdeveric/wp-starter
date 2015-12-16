@@ -1,6 +1,7 @@
 ._*
 .DS_Store
 .htaccess
+.env
 index.php
 Thumbs.db
 composer.lock
