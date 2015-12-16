@@ -19,7 +19,7 @@
   "require": {
     "php": ">=5.5",
     "johnpbloch/wordpress": "4.4.0",
-    "wpackagist-plugin/rest-api": "2.0-beta8",
+    "wpackagist-plugin/rest-api": "2.0-beta9",
     "wpackagist-plugin/what-template-am-i-using": "0.2.0",
     "wpackagist-plugin/recently-edited-content-widget": "0.3.2",
     "wpackagist-plugin/get-post-content-shortcode": "0.3.2"
