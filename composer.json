@@ -27,9 +27,6 @@
   "require-dev": {
     "webdeveric/http-api-debug": "dev-master"
   },
-  "config": {
-    "preferred-install": "dist"
-  },
   "extra": {
     "wordpress-install-dir": "wp"
   },
