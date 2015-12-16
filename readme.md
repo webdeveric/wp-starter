@@ -29,15 +29,16 @@ Install [Composer](https://getcomposer.org/) then run this from the project dire
 
 ```bash
 composer install
-mv ./wp-config.php.example ./wp-config.php
+cp ./.env.example ./.env
+cp ./wp-config-env.php ./wp-config.php
 ```
 
-To use the `wp-config.php.example` file, you need to have the `WP_ENV` environment variable set to the file system path of your environment configuration file.
+For the config to work, you need to create a `WP_ENV` environment variable that contains the file system path to the `.env` file.
 An example `.env` file is included in this repo.
 
 If you're using Apache for local development, you can add this to your `.htaccess` file:
 
-```
+```apacheconf
 SetEnv WP_ENV /your/path/to/.env
 ```
 
@@ -57,7 +58,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install --no-dev --prefer-dist --no-interaction
 
 # Setup wp-config.php
-mv ./wp-config.php.example ./wp-config.php
+mv ./wp-config-env.php ./wp-config.php
 rm -f ./wp/wp-config-sample.php
 
 # Remove files that are not needed to run in the production environment
