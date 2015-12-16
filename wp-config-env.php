@@ -63,7 +63,7 @@ define('LOGGED_IN_SALT',   $_ENV['LOGGED_IN_SALT'] );
 define('NONCE_SALT',       $_ENV['NONCE_SALT'] );
 
 define( 'WPLANG', '' );
-define( 'WP_DEBUG', isset( $_ENV['WP_DEBUG'] ) : (bool)$_ENV['WP_DEBUG'] : false );
+define( 'WP_DEBUG', isset( $_ENV['WP_DEBUG'] ) ? (bool)$_ENV['WP_DEBUG'] : false );
 
 define( 'DISALLOW_FILE_EDIT', true );
 define( 'FORCE_SSL_LOGIN', true );
