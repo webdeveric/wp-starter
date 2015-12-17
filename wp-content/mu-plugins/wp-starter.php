@@ -29,4 +29,3 @@ function theme_root_uri( $theme_root_uri, $siteurl, $stylesheet_or_template )
     return $theme_root_uri;
 }
 add_filter( 'theme_root_uri', __NAMESPACE__ . '\theme_root_uri', 10, 3 );
-
