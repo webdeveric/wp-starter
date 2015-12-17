@@ -4,23 +4,12 @@
   Load the config from the env file.
 */
 
-if ( isset( $_SERVER['WP_ENV'] ) && is_readable( $_SERVER['WP_ENV'] ) ) {
-
-  $_ENV = array_merge(
-    $_ENV,
-    parse_ini_file(
-      $_SERVER['WP_ENV'],
-      false,
-      INI_SCANNER_RAW
-    )
-  );
-
-} else {
+if ( ! isset( $_SERVER['WP_ENV'] ) || ! is_readable( $_SERVER['WP_ENV'] ) ) {
 
   error_log(
     isset( $_SERVER['WP_ENV'] ) ?
       'Could not read WP_ENV file: "' . $_SERVER['WP_ENV'] :
-      'The WP_ENV environment varialbe was not found.'
+      'The WP_ENV environment variable was not found.'
   );
 
   header( 'HTTP/1.1 503 Service Temporarily Unavailable' );
@@ -30,55 +19,56 @@ if ( isset( $_SERVER['WP_ENV'] ) && is_readable( $_SERVER['WP_ENV'] ) ) {
 
 }
 
-if ( isset( $_ENV['WP_SITEURL'], $_ENV['WP_HOME'] ) ) {
+$config = (function( $file_path ) {
+  $data = parse_ini_file( $file_path, false, INI_SCANNER_RAW );
+  $data = array_change_key_case( $data, CASE_UPPER );
+  return function( $key, $default = '' ) use ( $data ) {
+    $key = strtoupper( $key );
+    return isset( $data[ $key ] ) ? $data[ $key ] : $default;
+  };
+})( $_SERVER['WP_ENV'] );
 
-  define( 'WP_SITEURL',     $_ENV['WP_SITEURL'] );
-  define( 'WP_HOME',        $_ENV['WP_HOME'] );
-  define( 'WP_CONTENT_URL', $_ENV['WP_CONTENT_URL'] );
-  define( 'WP_CONTENT_DIR', $_ENV['WP_CONTENT_DIR'] );
+define( 'WP_SITEURL',     $config( 'WP_SITEURL',     'http://' . $_SERVER['HTTP_HOST'] . '/wp' ) );
+define( 'WP_HOME',        $config( 'WP_HOME',        'http://' . $_SERVER['HTTP_HOST'] ) );
+define( 'WP_CONTENT_URL', $config( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content' ) );
+define( 'WP_CONTENT_DIR', $config( 'WP_CONTENT_DIR', __DIR__ . '/wp-content' ) );
 
-} else {
-
-  define( 'WP_SITEURL',     'http://' . $_SERVER['HTTP_HOST'] . '/wp' );
-  define( 'WP_HOME',        'http://' . $_SERVER['HTTP_HOST']  );
-  define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content' );
-  define( 'WP_CONTENT_DIR', __DIR__ . '/wp-content' );
-
-}
-
-define( 'DB_NAME',     $_ENV['DB_NAME'] );
-define( 'DB_USER',     $_ENV['DB_USER'] );
-define( 'DB_PASSWORD', $_ENV['DB_PASSWORD'] );
-define( 'DB_HOST',     $_ENV['DB_HOST'] );
+define( 'DB_NAME',     $config( 'DB_NAME' ) );
+define( 'DB_USER',     $config( 'DB_USER' ) );
+define( 'DB_PASSWORD', $config( 'DB_PASSWORD' ) );
+define( 'DB_HOST',     $config( 'DB_HOST', 'localhost' ) );
 define( 'DB_CHARSET',  'utf8' );
 define( 'DB_COLLATE',  '' );
 
-define('AUTH_KEY',         $_ENV['AUTH_KEY'] );
-define('SECURE_AUTH_KEY',  $_ENV['SECURE_AUTH_KEY'] );
-define('LOGGED_IN_KEY',    $_ENV['LOGGED_IN_KEY'] );
-define('NONCE_KEY',        $_ENV['NONCE_KEY'] );
-define('AUTH_SALT',        $_ENV['AUTH_SALT'] );
-define('SECURE_AUTH_SALT', $_ENV['SECURE_AUTH_SALT'] );
-define('LOGGED_IN_SALT',   $_ENV['LOGGED_IN_SALT'] );
-define('NONCE_SALT',       $_ENV['NONCE_SALT'] );
+define( 'AUTH_KEY',         $config( 'AUTH_KEY' ) );
+define( 'SECURE_AUTH_KEY',  $config( 'SECURE_AUTH_KEY' ) );
+define( 'LOGGED_IN_KEY',    $config( 'LOGGED_IN_KEY' ) );
+define( 'NONCE_KEY',        $config( 'NONCE_KEY' ) );
+define( 'AUTH_SALT',        $config( 'AUTH_SALT' ) );
+define( 'SECURE_AUTH_SALT', $config( 'SECURE_AUTH_SALT' ) );
+define( 'LOGGED_IN_SALT',   $config( 'LOGGED_IN_SALT' ) );
+define( 'NONCE_SALT',       $config( 'NONCE_SALT' ) );
 
 define( 'WPLANG', '' );
-define( 'WP_DEBUG', isset( $_ENV['WP_DEBUG'] ) ? (bool)$_ENV['WP_DEBUG'] : false );
+define( 'WP_DEBUG', $config( 'WP_DEBUG', false ) );
 
-define( 'DISALLOW_FILE_EDIT', true );
-define( 'FORCE_SSL_LOGIN', true );
-define( 'FORCE_SSL_ADMIN', true );
+define( 'DISALLOW_FILE_EDIT', $config( 'DISALLOW_FILE_EDIT', true ) );
+define( 'FORCE_SSL_LOGIN',    $config( 'FORCE_SSL_LOGIN', true ) );
+define( 'FORCE_SSL_ADMIN',    $config( 'FORCE_SSL_ADMIN', true ) );
 
-define( 'AUTOMATIC_UPDATER_DISABLED', true );
-define( 'WP_AUTO_UPDATE_CORE', false );
+define( 'AUTOMATIC_UPDATER_DISABLED', $config( 'AUTOMATIC_UPDATER_DISABLED', true ) );
+define( 'WP_AUTO_UPDATE_CORE', $config( 'WP_AUTO_UPDATE_CORE', false ) );
 
-$table_prefix  = $_ENV['DB_TABLE_PREFIX'];
+$table_prefix = $config( 'DB_TABLE_PREFIX', 'wp_' );
+
+unset( $config );
 
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
-if ( ! defined( 'ABSPATH' ) )
-    define( 'ABSPATH', dirname(__FILE__) . '/' );
+if ( ! defined( 'ABSPATH' ) ) {
+  define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+}
 
 /** Sets up WordPress vars and included files. */
-require_once(ABSPATH . 'wp-settings.php' );
+require_once( ABSPATH . 'wp-settings.php' );
