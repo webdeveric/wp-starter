@@ -22,7 +22,7 @@ if ( ! isset( $_SERVER['WP_ENV'] ) || ! is_readable( $_SERVER['WP_ENV'] ) ) {
 $config = (function( $file_path ) {
   $data = parse_ini_file( $file_path, false, INI_SCANNER_RAW );
   $data = array_change_key_case( $data, CASE_UPPER );
-  return function( $key, $default = '' ) use ( $data ) {
+  return function( $key, $default = '' ) use ( &$data ) {
     $key = strtoupper( $key );
     return isset( $data[ $key ] ) ? $data[ $key ] : $default;
   };
