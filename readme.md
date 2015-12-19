@@ -61,6 +61,9 @@ NC='\033[0m' # No color
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
 
+# Validate first
+php composer.phar validate -A --strict
+
 # Install dependencies
 php composer.phar install --no-dev --prefer-dist --no-interaction
 
