@@ -46,6 +46,8 @@ SetEnv WP_ENV /your/path/to/.env
 
 This should get you started with your deployment script for Jenkins (or other deployment server).
 
+**WARNING:** Do not run this locally. It will delete files not needed on a production server, like your `.git` folder.
+
 ```bash
 #!/bin/bash -l -e
 # set -x
