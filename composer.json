@@ -1,12 +1,15 @@
 {
   "name": "webdeveric/wp-starter",
+  "description": "WordPress dependency management with Composer",
+  "license": "proprietary",
+  "keywords": [ "WordPress", "composer", "dependency" ],
   "authors": [
     {
       "name": "Eric King",
       "email": "eric@webdeveric.com"
     }
   ],
-  "repositories":[  
+  "repositories": [
     {
       "type": "git",
       "url": "https://github.com/webdeveric/http-api-debug.git"
