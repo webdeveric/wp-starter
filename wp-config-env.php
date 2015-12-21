@@ -24,7 +24,16 @@ $config = (function( $file_path ) {
   $data = array_change_key_case( $data, CASE_UPPER );
   return function( $key, $default = '' ) use ( &$data ) {
     $key = strtoupper( $key );
-    return isset( $data[ $key ] ) ? $data[ $key ] : $default;
+    if ( isset( $data[ $key ] ) ) {
+      if ( $data[ $key ] === 'true' ) {
+        return true;
+      }
+      if ( $data[ $key ] === 'false' ) {
+        return false;
+      }
+      return $data[ $key ];
+    }
+    return $default;
   };
 })( $_SERVER['WP_ENV'] );
 
@@ -37,8 +46,8 @@ define( 'DB_NAME',     $config( 'DB_NAME' ) );
 define( 'DB_USER',     $config( 'DB_USER' ) );
 define( 'DB_PASSWORD', $config( 'DB_PASSWORD' ) );
 define( 'DB_HOST',     $config( 'DB_HOST', 'localhost' ) );
-define( 'DB_CHARSET',  'utf8' );
-define( 'DB_COLLATE',  '' );
+define( 'DB_CHARSET',  $config( 'DB_CHARSET', 'utf8' ) );
+define( 'DB_COLLATE',  $config( 'DB_COLLATE' ) );
 
 define( 'AUTH_KEY',         $config( 'AUTH_KEY' ) );
 define( 'SECURE_AUTH_KEY',  $config( 'SECURE_AUTH_KEY' ) );
@@ -49,15 +58,19 @@ define( 'SECURE_AUTH_SALT', $config( 'SECURE_AUTH_SALT' ) );
 define( 'LOGGED_IN_SALT',   $config( 'LOGGED_IN_SALT' ) );
 define( 'NONCE_SALT',       $config( 'NONCE_SALT' ) );
 
-define( 'WPLANG', '' );
+define( 'WPLANG',   $config( 'WPLANG' ) );
 define( 'WP_DEBUG', $config( 'WP_DEBUG', false ) );
 
+define( 'DISALLOW_FILE_MODS', $config( 'DISALLOW_FILE_MODS', true ) );
 define( 'DISALLOW_FILE_EDIT', $config( 'DISALLOW_FILE_EDIT', true ) );
 define( 'FORCE_SSL_LOGIN',    $config( 'FORCE_SSL_LOGIN', true ) );
 define( 'FORCE_SSL_ADMIN',    $config( 'FORCE_SSL_ADMIN', true ) );
 
 define( 'AUTOMATIC_UPDATER_DISABLED', $config( 'AUTOMATIC_UPDATER_DISABLED', true ) );
-define( 'WP_AUTO_UPDATE_CORE', $config( 'WP_AUTO_UPDATE_CORE', false ) );
+define( 'WP_AUTO_UPDATE_CORE',        $config( 'WP_AUTO_UPDATE_CORE', false ) );
+
+define( 'WP_MEMORY_LIMIT',     $config( 'WP_MEMORY_LIMIT', '64M' ) );
+define( 'WP_MAX_MEMORY_LIMIT', $config( 'WP_MAX_MEMORY_LIMIT', '256M' ) );
 
 $table_prefix = $config( 'DB_TABLE_PREFIX', 'wp_' );
 
