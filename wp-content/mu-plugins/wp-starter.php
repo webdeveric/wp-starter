@@ -11,21 +11,17 @@ Author URI: http://webdeveric.com/
 
 namespace WDE\WPStarter;
 
-define( 'WPSTARTER_THEME_DIRECTORY', $_SERVER['DOCUMENT_ROOT'] . '/themes' );
+$autoload = $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-if ( file_exists( WPSTARTER_THEME_DIRECTORY ) && is_readable( WPSTARTER_THEME_DIRECTORY ) ) {
-    register_theme_directory( WPSTARTER_THEME_DIRECTORY );
+if ( is_readable( $autoload ) ) {
+  require_once $autoload;
 }
 
-/*
-    This fixes the URI so that the theme screenshots will show up in the admin.
-*/
-function theme_root_uri( $theme_root_uri, $siteurl, $stylesheet_or_template )
-{
-    if ( $theme_root_uri === WPSTARTER_THEME_DIRECTORY ) {
-        $theme_root_uri = str_replace( $_SERVER['DOCUMENT_ROOT'], get_home_url(), $theme_root_uri );
-    }
+include WPMU_PLUGIN_DIR . '/wp-starter/helpers.php';
+include WPMU_PLUGIN_DIR . '/wp-starter/theme-directory.php';
+include WPMU_PLUGIN_DIR . '/wp-starter/common.php';
+include WPMU_PLUGIN_DIR . '/wp-starter/login.php';
 
-    return $theme_root_uri;
+if ( is_admin() ) {
+  include WPMU_PLUGIN_DIR . '/wp-starter/admin.php';
 }
-add_filter( 'theme_root_uri', __NAMESPACE__ . '\theme_root_uri', 10, 3 );
