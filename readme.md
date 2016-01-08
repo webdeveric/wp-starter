@@ -67,7 +67,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar validate -A --strict
 
 # Install dependencies
-php composer.phar install --no-dev --prefer-dist --no-interaction
+php composer.phar install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 
 # Remove composer when done
 rm -f ./composer.phar
