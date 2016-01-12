@@ -37,9 +37,9 @@ $config = (function( $file_path ) {
   };
 })( $_SERVER['WP_ENV'] );
 
-define( 'WP_SITEURL',     $config( 'WP_SITEURL',     'http://' . $_SERVER['HTTP_HOST'] . '/wp' ) );
-define( 'WP_HOME',        $config( 'WP_HOME',        'http://' . $_SERVER['HTTP_HOST'] ) );
-define( 'WP_CONTENT_URL', $config( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content' ) );
+define( 'WP_SITEURL',     $config( 'WP_SITEURL',     isset( $_SERVER['HTTP_HOST'] ) ? 'http://' . $_SERVER['HTTP_HOST'] . '/wp' : '' ) );
+define( 'WP_HOME',        $config( 'WP_HOME',        isset( $_SERVER['HTTP_HOST'] ) ? 'http://' . $_SERVER['HTTP_HOST'] : '' ) );
+define( 'WP_CONTENT_URL', $config( 'WP_CONTENT_URL', ! empty( WP_HOME ) ? WP_HOME . '/wp-content' : '' ) );
 define( 'WP_CONTENT_DIR', $config( 'WP_CONTENT_DIR', __DIR__ . '/wp-content' ) );
 
 define( 'DB_NAME',     $config( 'DB_NAME' ) );
