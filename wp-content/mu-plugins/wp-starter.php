@@ -11,12 +11,6 @@ Author URI: http://webdeveric.com/
 
 namespace WDE\WPStarter;
 
-$autoload = $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
-
-if ( is_readable( $autoload ) ) {
-  require_once $autoload;
-}
-
 include WPMU_PLUGIN_DIR . '/wp-starter/helpers.php';
 include WPMU_PLUGIN_DIR . '/wp-starter/theme-directory.php';
 include WPMU_PLUGIN_DIR . '/wp-starter/common.php';
