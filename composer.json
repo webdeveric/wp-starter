@@ -15,17 +15,27 @@
       "url": "https://github.com/webdeveric/http-api-debug.git"
     },
     {
+      "type": "git",
+      "url": "https://github.com/lplabs/wp-composer-autoloader.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/lplabs/wordpress-muplugin-installer.git"
+    },
+    {
       "type":"composer",
-      "url":"http://wpackagist.org"
+      "url":"https://wpackagist.org"
     }
   ],
   "require": {
     "php": ">=5.5",
-    "johnpbloch/wordpress": "4.4.0",
-    "wpackagist-plugin/rest-api": "2.0-beta9",
-    "wpackagist-plugin/what-template-am-i-using": "0.2.0",
-    "wpackagist-plugin/recently-edited-content-widget": "0.3.2",
-    "wpackagist-plugin/get-post-content-shortcode": "0.3.2"
+    "johnpbloch/wordpress": "^4.5.0",
+    "lplabs/wp-composer-autoloader": "^0.1.0",
+    "lplabs/wordpress-muplugin-installer": "^1.0.0",
+    "wpackagist-plugin/rest-api": "^2.0-beta13",
+    "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
+    "wpackagist-plugin/recently-edited-content-widget": "^0.3.2",
+    "wpackagist-plugin/get-post-content-shortcode": "^0.3.2"
   },
   "require-dev": {
     "webdeveric/http-api-debug": "dev-master"
