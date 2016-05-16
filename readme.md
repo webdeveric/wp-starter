@@ -23,15 +23,21 @@ The included [composer.json](composer.json) file has an example of getting a plu
 
 ## Installation
 
-### Local development environment
+Install [Composer](https://getcomposer.org/) before you do anything else.
 
-Install [Composer](https://getcomposer.org/) then run this from the project directory.
+### Use this repo as the basis for a new project
+
+```
+composer create-project webdeveric/wp-starter ./your-folder-here --repository '{"type": "git", "url": "https://github.com/webdeveric/wp-starter.git"}' -s dev --prefer-dist --no-interaction
+```
+
+### Local development
 
 ```bash
 composer install
-cp ./.env.example ./.env
-cp ./wp-config-env.php ./wp-config.php
 ```
+
+## Configuration
 
 For the config to work, you need to create a `WP_ENV` environment variable that contains the file system path to the `.env` file.
 An example `.env` file is included in this repo.
@@ -42,7 +48,7 @@ If you're using Apache for local development, you can add this to your `.htacces
 SetEnv WP_ENV /your/path/to/.env
 ```
 
-### Deployment server
+## Deployment server
 
 This should get you started with your deployment script for Jenkins (or other deployment server).
 
@@ -63,14 +69,8 @@ NC='\033[0m' # No color
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
 
-# Validate first
-php composer.phar validate -A --strict
-
 # Install dependencies
 php composer.phar install --no-dev --prefer-dist --no-interaction --optimize-autoloader
-
-# Remove composer when done
-rm -f ./composer.phar
 
 # Setup wp-config.php
 if [ -f ./wp-config.php ]; then
@@ -92,9 +92,12 @@ if [ ! -f ./wp-config.php ]; then
 fi
 
 # Remove files that are not needed to run in the production environment
+rm -f ./composer.phar
+rm -f ./.env.example
 rm -f ./wp/wp-config-sample.php
-find . -name ".git*" -exec rm -rf {} \;
-find . -iname "readme.{txt,md}" -exec rm -rf {} \;
+find . -name '.git*' -prune -exec rm -rf {} \+
+find . -iname 'readme.*' -exec rm -rf {} \+
+find . -iname 'contributing.*' -exec rm -rf {} \+
 echo -e "${BLUE}Clean up complete${NC}"
 
 # Your custom packaging and deployment tasks go here.
