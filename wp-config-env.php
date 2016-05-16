@@ -4,84 +4,90 @@
   Load the config from the env file.
 */
 
-if ( ! isset( $_SERVER['WP_ENV'] ) || ! is_readable( $_SERVER['WP_ENV'] ) ) {
+if (! isset($_SERVER['WP_ENV']) || ! is_readable($_SERVER['WP_ENV'])) {
+    error_log(
+        isset($_SERVER['WP_ENV']) ?
+            'Could not read WP_ENV file: "' . $_SERVER['WP_ENV'] :
+            'The WP_ENV environment variable was not found.'
+    );
 
-  error_log(
-    isset( $_SERVER['WP_ENV'] ) ?
-      'Could not read WP_ENV file: "' . $_SERVER['WP_ENV'] :
-      'The WP_ENV environment variable was not found.'
-  );
-
-  header( 'HTTP/1.1 503 Service Temporarily Unavailable' );
-  header( 'Status: 503 Service Temporarily Unavailable' );
-  header( 'Retry-After: 300' );
-  exit(1);
-
+    header('HTTP/1.1 503 Service Temporarily Unavailable');
+    header('Status: 503 Service Temporarily Unavailable');
+    header('Retry-After: 300');
+    exit(1);
 }
 
-$config = (function( $file_path ) {
-  $data = parse_ini_file( $file_path, false, INI_SCANNER_RAW );
-  $data = array_change_key_case( $data, CASE_UPPER );
-  return function( $key, $default = '' ) use ( &$data ) {
-    $key = strtoupper( $key );
-    if ( isset( $data[ $key ] ) ) {
-      if ( $data[ $key ] === 'true' ) {
-        return true;
-      }
-      if ( $data[ $key ] === 'false' ) {
-        return false;
-      }
-      return $data[ $key ];
-    }
-    return $default;
-  };
-})( $_SERVER['WP_ENV'] );
+$config = call_user_func(
+    function ($file_path) {
+        $data = parse_ini_file($file_path, false, INI_SCANNER_RAW);
+        $data = array_change_key_case($data, CASE_UPPER);
 
-define( 'WP_SITEURL',     $config( 'WP_SITEURL',     isset( $_SERVER['HTTP_HOST'] ) ? 'http://' . $_SERVER['HTTP_HOST'] . '/wp' : '' ) );
-define( 'WP_HOME',        $config( 'WP_HOME',        isset( $_SERVER['HTTP_HOST'] ) ? 'http://' . $_SERVER['HTTP_HOST'] : '' ) );
-define( 'WP_CONTENT_URL', $config( 'WP_CONTENT_URL', ! empty( WP_HOME ) ? WP_HOME . '/wp-content' : '' ) );
-define( 'WP_CONTENT_DIR', $config( 'WP_CONTENT_DIR', __DIR__ . '/wp-content' ) );
+        return function ($key, $default = '') use (&$data) {
+            $key = strtoupper($key);
 
-define( 'DB_NAME',     $config( 'DB_NAME' ) );
-define( 'DB_USER',     $config( 'DB_USER' ) );
-define( 'DB_PASSWORD', $config( 'DB_PASSWORD' ) );
-define( 'DB_HOST',     $config( 'DB_HOST', 'localhost' ) );
-define( 'DB_CHARSET',  $config( 'DB_CHARSET', 'utf8' ) );
-define( 'DB_COLLATE',  $config( 'DB_COLLATE' ) );
+            if (isset($data[ $key ])) {
+                if ($data[ $key ] === 'true') {
+                    return true;
+                }
 
-define( 'AUTH_KEY',         $config( 'AUTH_KEY' ) );
-define( 'SECURE_AUTH_KEY',  $config( 'SECURE_AUTH_KEY' ) );
-define( 'LOGGED_IN_KEY',    $config( 'LOGGED_IN_KEY' ) );
-define( 'NONCE_KEY',        $config( 'NONCE_KEY' ) );
-define( 'AUTH_SALT',        $config( 'AUTH_SALT' ) );
-define( 'SECURE_AUTH_SALT', $config( 'SECURE_AUTH_SALT' ) );
-define( 'LOGGED_IN_SALT',   $config( 'LOGGED_IN_SALT' ) );
-define( 'NONCE_SALT',       $config( 'NONCE_SALT' ) );
+                if ($data[ $key ] === 'false') {
+                    return false;
+                }
 
-define( 'WPLANG',   $config( 'WPLANG' ) );
-define( 'WP_DEBUG', $config( 'WP_DEBUG', false ) );
+                return $data[ $key ];
+            }
 
-define( 'DISALLOW_FILE_MODS', $config( 'DISALLOW_FILE_MODS', true ) );
-define( 'DISALLOW_FILE_EDIT', $config( 'DISALLOW_FILE_EDIT', true ) );
-define( 'FORCE_SSL_LOGIN',    $config( 'FORCE_SSL_LOGIN', true ) );
-define( 'FORCE_SSL_ADMIN',    $config( 'FORCE_SSL_ADMIN', true ) );
+            return $default;
+        };
+    },
+    $_SERVER['WP_ENV']
+);
 
-define( 'AUTOMATIC_UPDATER_DISABLED', $config( 'AUTOMATIC_UPDATER_DISABLED', true ) );
-define( 'WP_AUTO_UPDATE_CORE',        $config( 'WP_AUTO_UPDATE_CORE', false ) );
+define('WP_SITEURL',     $config('WP_SITEURL',     isset($_SERVER['HTTP_HOST']) ? 'http://' . $_SERVER['HTTP_HOST'] . '/wp' : ''));
+define('WP_HOME',        $config('WP_HOME',        isset($_SERVER['HTTP_HOST']) ? 'http://' . $_SERVER['HTTP_HOST'] : ''));
+define('WP_CONTENT_URL', $config('WP_CONTENT_URL', ! empty(WP_HOME) ? WP_HOME . '/wp-content' : ''));
+define('WP_CONTENT_DIR', $config('WP_CONTENT_DIR', __DIR__ . '/wp-content'));
 
-define( 'WP_MEMORY_LIMIT',     $config( 'WP_MEMORY_LIMIT', '64M' ) );
-define( 'WP_MAX_MEMORY_LIMIT', $config( 'WP_MAX_MEMORY_LIMIT', '256M' ) );
+define('DB_NAME',     $config('DB_NAME'));
+define('DB_USER',     $config('DB_USER'));
+define('DB_PASSWORD', $config('DB_PASSWORD'));
+define('DB_HOST',     $config('DB_HOST', 'localhost'));
+define('DB_CHARSET',  $config('DB_CHARSET', 'utf8'));
+define('DB_COLLATE',  $config('DB_COLLATE'));
 
-$table_prefix = $config( 'DB_TABLE_PREFIX', 'wp_' );
+define('AUTH_KEY',         $config('AUTH_KEY'));
+define('SECURE_AUTH_KEY',  $config('SECURE_AUTH_KEY'));
+define('LOGGED_IN_KEY',    $config('LOGGED_IN_KEY'));
+define('NONCE_KEY',        $config('NONCE_KEY'));
+define('AUTH_SALT',        $config('AUTH_SALT'));
+define('SECURE_AUTH_SALT', $config('SECURE_AUTH_SALT'));
+define('LOGGED_IN_SALT',   $config('LOGGED_IN_SALT'));
+define('NONCE_SALT',       $config('NONCE_SALT'));
 
-unset( $config );
+define('WPLANG',   $config('WPLANG'));
+define('WP_DEBUG', $config('WP_DEBUG', false));
+
+define('DISALLOW_FILE_MODS', $config('DISALLOW_FILE_MODS', true));
+define('DISALLOW_FILE_EDIT', $config('DISALLOW_FILE_EDIT', true));
+
+define('AUTOMATIC_UPDATER_DISABLED', $config('AUTOMATIC_UPDATER_DISABLED', true));
+define('WP_AUTO_UPDATE_CORE',        $config('WP_AUTO_UPDATE_CORE', false));
+
+define('WP_MEMORY_LIMIT',     $config('WP_MEMORY_LIMIT', '64M'));
+define('WP_MAX_MEMORY_LIMIT', $config('WP_MAX_MEMORY_LIMIT', '256M'));
+
+define('FORCE_SSL_ADMIN', $config('FORCE_SSL_ADMIN', false));
+
+$table_prefix = $config('DB_TABLE_PREFIX', 'wp_');
+
+unset($config);
 
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
-if ( ! defined( 'ABSPATH' ) ) {
-  define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+if (! defined('ABSPATH')) {
+    define('ABSPATH', dirname(__FILE__) . '/');
 }
 
 /** Sets up WordPress vars and included files. */
-require_once( ABSPATH . 'wp-settings.php' );
+require_once(ABSPATH . 'wp-settings.php');
