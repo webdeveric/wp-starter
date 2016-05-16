@@ -44,9 +44,12 @@
     "wordpress-install-dir": "wp"
   },
   "scripts": {
-    "post-install-cmd": [
-      "sed 's\/wp-blog-header\\.php/wp\\/wp-blog-header\\.php\/g' .\/wp\/index.php > .\/index.php",
-      "rm -rf ./wp/wp-content ./wp/readme.html"
-    ]
+    "fixIndex": "sed 's\/wp-blog-header\\.php/wp\\/wp-blog-header\\.php\/g' .\/wp\/index.php > .\/index.php",
+    "copyEnv": "cp ./.env.example ./.env --no-clobber",
+    "copyConfig": "cp ./wp-config-env.php ./wp-config.php --no-clobber",
+    "cleanUp": "rm -rf ./wp/wp-content ./wp/readme.html",
+    "setupWordPress": [ "@fixIndex", "@copyEnv", "@copyConfig", "@cleanUp" ],
+    "post-update-cmd": "@setupWordPress",
+    "post-install-cmd": "@setupWordPress"
   }
 }
