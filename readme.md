@@ -28,7 +28,7 @@ Install [Composer](https://getcomposer.org/) before you do anything else.
 ### Use this repo as the basis for a new project
 
 ```
-composer create-project webdeveric/wp-starter ./your-folder-here --repository '{"type": "git", "url": "https://github.com/webdeveric/wp-starter.git"}' -s dev --prefer-dist --no-interaction
+composer create-project --repository '{"type":"git","url":"https://github.com/webdeveric/wp-starter.git"}' -s dev --prefer-dist --no-interaction -- webdeveric/wp-starter ./your-folder-here
 ```
 
 ### Local development
