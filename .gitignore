@@ -8,11 +8,13 @@ composer.lock
 composer.phar
 npm-debug.log
 node_modules/
+/cms/
 /private/
 /vendor/
 /wp/
 /wp-config.php
 /wp-content/plugins/**/*
+/wp-content/mu-plugins/**/*
 /wp-content/themes/**/*
 /wp-content/uploads/**/*
 !/wp-content/**/index.html
