@@ -1,49 +1,22 @@
 <?php
 
-/*
-  Load the config from the env file.
-*/
+include __DIR__ . '/src/helpers.php';
 
-if (! isset($_SERVER['WP_ENV']) || ! is_readable($_SERVER['WP_ENV'])) {
-    error_log(
-        isset($_SERVER['WP_ENV']) ?
-            'Could not read WP_ENV file: "' . $_SERVER['WP_ENV'] :
-            'The WP_ENV environment variable was not found.'
-    );
+$config = \webdeveric\WPStarter\getConfig(
+    \webdeveric\WPStarter\getEnvFilePath()
+);
+
+if (! $config) {
+    error_log('Could not read config from env file.');
 
     header('HTTP/1.1 503 Service Temporarily Unavailable');
     header('Status: 503 Service Temporarily Unavailable');
     header('Retry-After: 300');
+
     exit(1);
 }
 
-$config = call_user_func(
-    function ($file_path) {
-        $data = parse_ini_file($file_path, false, INI_SCANNER_RAW);
-        $data = array_change_key_case($data, CASE_UPPER);
-
-        return function ($key, $default = '') use (&$data) {
-            $key = strtoupper($key);
-
-            if (isset($data[ $key ])) {
-                if ($data[ $key ] === 'true') {
-                    return true;
-                }
-
-                if ($data[ $key ] === 'false') {
-                    return false;
-                }
-
-                return $data[ $key ];
-            }
-
-            return $default;
-        };
-    },
-    $_SERVER['WP_ENV']
-);
-
-define('WP_SITEURL',     $config('WP_SITEURL',     isset($_SERVER['HTTP_HOST']) ? 'http://' . $_SERVER['HTTP_HOST'] . '/wp' : ''));
+define('WP_SITEURL',     $config('WP_SITEURL',     isset($_SERVER['HTTP_HOST']) ? 'http://' . $_SERVER['HTTP_HOST'] . '/cms' : ''));
 define('WP_HOME',        $config('WP_HOME',        isset($_SERVER['HTTP_HOST']) ? 'http://' . $_SERVER['HTTP_HOST'] : ''));
 define('WP_CONTENT_URL', $config('WP_CONTENT_URL', ! empty(WP_HOME) ? WP_HOME . '/wp-content' : ''));
 define('WP_CONTENT_DIR', $config('WP_CONTENT_DIR', __DIR__ . '/wp-content'));

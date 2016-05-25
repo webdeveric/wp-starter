@@ -27,6 +27,11 @@
       "url":"https://wpackagist.org"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "webdeveric\\WPStarter\\": "src/"
+    }
+  },
   "require": {
     "php": ">=5.5",
     "johnpbloch/wordpress": "^4.5.0",
@@ -41,15 +46,11 @@
     "webdeveric/http-api-debug": "dev-master"
   },
   "extra": {
-    "wordpress-install-dir": "wp"
+    "wordpress-install-dir": "cms"
   },
   "scripts": {
-    "fixIndex": "sed 's\/wp-blog-header\\.php/wp\\/wp-blog-header\\.php\/g' .\/wp\/index.php > .\/index.php",
-    "copyEnv": "cp ./.env.example ./.env --no-clobber",
-    "copyConfig": "cp ./wp-config-env.php ./wp-config.php --no-clobber",
-    "cleanUp": "rm -rf ./wp/wp-content ./wp/readme.html",
-    "setupWordPress": [ "@fixIndex", "@copyEnv", "@copyConfig", "@cleanUp" ],
-    "post-update-cmd": "@setupWordPress",
-    "post-install-cmd": "@setupWordPress"
+    "post-update-cmd": "webdeveric\\WPStarter\\Setup::getInstance",
+    "post-install-cmd": "webdeveric\\WPStarter\\Setup::getInstance",
+    "post-create-project-cmd": "webdeveric\\WPStarter\\Setup::getInstance"
   }
 }
