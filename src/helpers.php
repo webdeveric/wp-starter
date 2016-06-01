@@ -2,16 +2,16 @@
 
 namespace webdeveric\WPStarter;
 
-function envIsReadable($env)
+function fileIsReadable($env)
 {
-    return $env && is_file($env) && is_readable($env) ? $env : false;
+    return $env && is_file($env) && is_readable($env);
 }
 
 function getEnvFilePath()
 {
     $path  = $_SERVER['WP_ENV'] ?: false;
 
-    if (envIsReadable($path)) {
+    if (fileIsReadable($path)) {
         return $path;
     }
 
@@ -21,7 +21,7 @@ function getEnvFilePath()
     for ($i = 0 ; $i < $limit && ! $path ; ++$i) {
         $env = realpath($_SERVER['DOCUMENT_ROOT'] . '/' . $paths[ $i ]);
 
-        if (envIsReadable($env)) {
+        if (fileIsReadable($env)) {
             $path = $env;
         }
     }
