@@ -16,6 +16,6 @@ include WPMU_PLUGIN_DIR . '/wp-starter/theme-directory.php';
 include WPMU_PLUGIN_DIR . '/wp-starter/common.php';
 include WPMU_PLUGIN_DIR . '/wp-starter/login.php';
 
-if ( is_admin() ) {
-  include WPMU_PLUGIN_DIR . '/wp-starter/admin.php';
+if (is_admin()) {
+    include WPMU_PLUGIN_DIR . '/wp-starter/admin.php';
 }
