@@ -7,22 +7,22 @@ function fileIsReadable($env)
     return $env && is_file($env) && is_readable($env);
 }
 
-function getEnvFilePath()
+function getEnvFilePath($key = 'WP_ENV')
 {
-    $path  = $_SERVER['WP_ENV'] ?: false;
+    $path  = $_SERVER[ $key ] ?: false;
 
     if (fileIsReadable($path)) {
         return $path;
     }
 
-    $paths = [ '.env', '../.env' ];
-    $limit = count($paths);
+    $paths = [ '../.env', '.env' ];
 
-    for ($i = 0 ; $i < $limit && ! $path ; ++$i) {
+    for ($i = 0; $i < 2; ++$i) {
         $env = realpath($_SERVER['DOCUMENT_ROOT'] . '/' . $paths[ $i ]);
 
         if (fileIsReadable($env)) {
             $path = $env;
+            break;
         }
     }
 

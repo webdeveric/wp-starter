@@ -24,7 +24,7 @@ class Setup
         $this->run();
     }
 
-    public static function getInstance($event)
+    public static function getInstance(Event $event)
     {
         return new self($event, new Filesystem());
     }
