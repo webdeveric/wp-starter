@@ -2,16 +2,19 @@
 
 namespace webdeveric\WPStarter;
 
+use Exception;
 use Composer\Script\Event;
 use Composer\Util\Filesystem;
 
 class Setup
 {
+    const SECRET_KEY_URL = 'https://api.wordpress.org/secret-key/1.1/salt/';
+
     protected $event;
     protected $fs;
     protected $wpInstallDir;
 
-    private function __construct(Event $event, Filesystem $fs)
+    protected function __construct(Event $event, Filesystem $fs)
     {
         $this->event = $event;
         $this->fs = $fs;
@@ -29,17 +32,17 @@ class Setup
         return new self($event, new Filesystem());
     }
 
-    public function getComposer()
+    protected function getComposer()
     {
         return $this->event->getComposer();
     }
 
-    public function getPackage()
+    protected function getPackage()
     {
         return $this->getComposer()->getPackage();
     }
 
-    public function getExtra($key = null, $default = '')
+    protected function getExtra($key = null, $default = '')
     {
         $extra = $this->getPackage()->getExtra();
 
@@ -50,22 +53,29 @@ class Setup
         return $extra;
     }
 
-    public function getIO()
+    protected function getIO()
     {
         return $this->event->getIO();
     }
 
-    public function info($message)
+    protected function info($message)
     {
         $this->getIO()->write("<info>{$message}</info>");
     }
 
-    public function error($message)
+    protected function comment($message)
+    {
+        if ( $this->getIO()->isVerbose() ) {
+            $this->getIO()->write("<comment>{$message}</comment>");
+        }
+    }
+
+    protected function error($message)
     {
         $this->getIO()->writeError("<error>{$message}</error>");
     }
 
-    public function fixIndexFile($src, $dest)
+    protected function fixIndexFile($src, $dest)
     {
         if (is_file($src) && is_readable($src)) {
             return file_put_contents(
@@ -81,25 +91,63 @@ class Setup
         return false;
     }
 
-    public function maybeCopyEnv()
+    protected function fetchSecrets()
+    {
+        $secrets = [];
+
+        ini_set('auto_detect_line_endings', true);
+
+        try {
+            $this->comment('Fetching secret key values from WordPess.org API');
+
+            $lines = file( self::SECRET_KEY_URL, FILE_IGNORE_NEW_LINES );
+
+            foreach( $lines as $line ) {
+                if ( preg_match("#define\('(?<key>[A-Z_]+)',\s*'(?<value>[^']+)'\);#", $line, $matches) ) {
+                    $secrets[ $matches['key'] ] = $matches['value'];
+                }
+            }
+        } catch ( Exception $error ) {
+            $this->error( trim( $error->getMessage() ) );
+        }
+
+        return $secrets;
+    }
+
+    protected function maybeCreateEnvFile()
     {
         if (! file_exists(getcwd() . '/.env')) {
-            return copy(getcwd() . '/.env.example', getcwd() . '/.env');
+            $secrets = $this->fetchSecrets();
+
+            $this->comment('Creating .env file from .env.example');
+
+            $env = file_get_contents(getcwd() . '/.env.example');
+
+            foreach( $secrets as $key => $value ) {
+                $env = str_replace("{$key}=SECRET_GOES_HERE", "{$key}=\"{$value}\"", $env);
+                $this->comment("Setting {$key}");
+            }
+
+            return file_put_contents(getcwd() . '/.env', $env);
         }
 
         return false;
     }
 
-    public function maybeCopyConfig()
+    protected function maybeCopyConfig()
     {
         if (! file_exists(getcwd() . '/wp-config.php')) {
+            $this->comment('Attempting to copy wp-config-env.php to wp-config.php');
+
             return copy(getcwd() . '/wp-config-env.php', getcwd() . '/wp-config.php');
+        } else {
+            $this->comment('wp-config.php already exists');
         }
 
         return false;
     }
 
-    public function cleanUp()
+    protected function cleanUp()
     {
         $cms = realpath(getcwd() . '/' . $this->wpInstallDir);
 
@@ -117,10 +165,10 @@ class Setup
         switch ($this->event->getName()) {
             case 'post-create-project-cmd':
 
-                if ($this->maybeCopyEnv()) {
-                    $this->info('.env.example copied to .env');
+                if ($this->maybeCreateEnvFile()) {
+                    $this->info('.env file created');
                 } else {
-                    $this->error('.env.example not copied');
+                    $this->error('.env file not created');
                 }
 
                 if ($this->maybeCopyConfig()) {
@@ -151,7 +199,7 @@ class Setup
 
                 break;
             default:
-                $this->error('unknown event');
+                $this->comment('unhandled event: ' . $this->event->getName());
         }
     }
 }
