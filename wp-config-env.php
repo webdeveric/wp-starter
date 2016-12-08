@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/src/helpers.php';
+include __DIR__ . '/vendor/autoload.php';
 
 $config = \webdeveric\WPStarter\getConfig(
     \webdeveric\WPStarter\getEnvFilePath()
