@@ -1,10 +1,10 @@
 <?php
 
-namespace WDE\WPStarter;
+namespace webdeveric\WPStarterTweaks;
 
-define('WPSTARTER_THEME_DIRECTORY', $_SERVER['DOCUMENT_ROOT'] . '/themes');
+define('WPSTARTER_THEME_DIRECTORY', realpath( __DIR__ . '/../../../themes') );
 
-if (file_exists(WPSTARTER_THEME_DIRECTORY) && is_readable(WPSTARTER_THEME_DIRECTORY)) {
+if (is_readable(WPSTARTER_THEME_DIRECTORY)) {
     register_theme_directory(WPSTARTER_THEME_DIRECTORY);
 }
 

@@ -1,0 +1,22 @@
+{
+  "name": "webdeveric/wp-starter-tweaks",
+  "version": "1.0.0",
+  "description": "Miscellaneous WordPress tweaks",
+  "type": "wordpress-muplugin",
+  "license": "MIT",
+  "keywords": [
+    "WordPress",
+    "tweaks"
+  ],
+  "authors": [
+    {
+      "name": "Eric King",
+      "email": "eric@webdeveric.com",
+      "homepage": "http://webdeveric.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "lplabs/wordpress-muplugin-installer": "^2.0"
+  }
+}

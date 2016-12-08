@@ -1,6 +1,6 @@
 <?php
 
-namespace WDE\WPStarter;
+namespace webdeveric\WPStarterTweaks;
 
 function str_starts_with($str, $word, $case_sensitive = true)
 {

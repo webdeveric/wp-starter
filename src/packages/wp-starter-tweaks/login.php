@@ -1,6 +1,6 @@
 <?php
 
-namespace WDE\WPStarter;
+namespace webdeveric\WPStarterTweaks;
 
 function login_headerurl()
 {

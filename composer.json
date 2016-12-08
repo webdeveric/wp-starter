@@ -2,11 +2,19 @@
   "name": "webdeveric/wp-starter",
   "description": "WordPress dependency management with Composer",
   "license": "proprietary",
-  "keywords": [ "WordPress", "composer", "dependency" ],
+  "keywords": [
+    "WordPress",
+    "starter",
+    "project",
+    "composer",
+    "dependency"
+  ],
   "authors": [
     {
       "name": "Eric King",
-      "email": "eric@webdeveric.com"
+      "email": "eric@webdeveric.com",
+      "homepage": "http://webdeveric.com",
+      "role": "Developer"
     }
   ],
   "repositories": [
@@ -15,23 +23,26 @@
       "url": "https://github.com/webdeveric/http-api-debug.git"
     },
     {
-      "type": "git",
-      "url": "https://github.com/LPLabs/wp-composer-autoloader.git"
+      "type": "path",
+      "url": "./src/packages/*"
     },
     {
-      "type":"composer",
-      "url":"https://wpackagist.org"
+      "type": "composer",
+      "url": "https://wpackagist.org"
     }
   ],
   "autoload": {
+    "files": [
+      "./src/helpers.php"
+    ],
     "psr-4": {
       "webdeveric\\WPStarter\\": "src/"
     }
   },
   "require": {
     "php": ">=5.5",
-    "johnpbloch/wordpress": "^4.5.0",
-    "lplabs/wp-composer-autoloader": "^0.2.0",
+    "johnpbloch/wordpress": "^4.7.0",
+    "webdeveric/wp-starter-tweaks": "*",
     "wpackagist-plugin/rest-api": "^2.0-beta13",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
     "wpackagist-plugin/recently-edited-content-widget": "^0.3.2",
