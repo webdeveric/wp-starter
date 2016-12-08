@@ -11,8 +11,6 @@ For this to work, the WordPress core needs to be put [in its own directory](http
 
 The included [composer.json](composer.json) file is already set up to do all of this for you.
 
-_The `post-install-cmd` scripts are currently only tested on Linux and OS X._
-
 ### Plugins and themes
 
 If the plugins/themes you want are published to the wordpress.org SVN repo, they will also be available on [WordPress Packagist](http://wpackagist.org), which is a Composer repository that mirrors the SVN repo.
@@ -39,68 +37,17 @@ composer install
 
 ## Configuration
 
-For the config to work, you need to create a `WP_ENV` environment variable that contains the file system path to the `.env` file.
-An example `.env` file is included in this repo.
+Configuration values are stored in a `.env` file.
+If you ran `composer create-project`, a config file was automatically created for you in your project directory.
 
-If you're using Apache for local development, you can add this to your `.htaccess` file:
+By default, `.env` will be loaded from the document root or one level above the document root.
+
+If you'd like to store your `.env` file somewhere else, you can by defining an environment variable named `WP_ENV` and set its value to the absolute path of your `.env` file.
+
+Example for Apache:
 
 ```apacheconf
 SetEnv WP_ENV /your/path/to/.env
-```
-
-## Deployment server
-
-This should get you started with your deployment script for Jenkins (or other deployment server).
-
-**WARNING:** Do not run this locally. It will delete files not needed on a production server, like your `.git` folder.
-
-```bash
-#!/bin/bash -l -e
-# set -x
-source ~/.bashrc
-
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No color
-
-# Install Composer
-curl -sS https://getcomposer.org/installer | php
-
-# Install dependencies
-php composer.phar install --no-dev --prefer-dist --no-interaction --optimize-autoloader
-
-# Setup wp-config.php
-if [ -f ./wp-config.php ]; then
-  echo -e "${PURPLE}wp-config.php already exists${NC}"
-fi
-
-if [ -f ./wp-config-env.php ] && [ ! -f ./wp-config.php ]; then
-  echo -e "${YELLOW}Creating wp-config.php${NC}"
-  mv ./wp-config-env.php ./wp-config.php
-
-  if [ -f ./wp-config.php ]; then
-    echo -e "${GREEN}wp-config.php has been created${NC}"
-  fi
-fi
-
-if [ ! -f ./wp-config.php ]; then
-  echo -e "${RED}wp-config.php is missing${NC}"
-  exit 1
-fi
-
-# Remove files that are not needed to run in the production environment
-rm -f ./composer.phar
-rm -f ./.env.example
-rm -f ./wp/wp-config-sample.php
-find . -name '.git*' -prune -exec rm -rf {} \+
-find . -iname 'readme.*' -exec rm -rf {} \+
-find . -iname 'contributing.*' -exec rm -rf {} \+
-echo -e "${BLUE}Clean up complete${NC}"
-
-# Your custom packaging and deployment tasks go here.
 ```
 
 ## Useful links
