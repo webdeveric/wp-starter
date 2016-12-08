@@ -15,18 +15,23 @@ function getEnvFilePath($key = 'WP_ENV')
         return $path;
     }
 
-    $paths = [ '../.env', '.env' ];
+    $parentDir = dirname(__DIR__);
 
-    for ($i = 0; $i < 2; ++$i) {
-        $env = realpath($_SERVER['DOCUMENT_ROOT'] . '/' . $paths[ $i ]);
+    $docRoot = realpath($_SERVER['DOCUMENT_ROOT'] ?: $parentDir);
 
-        if (fileIsReadable($env)) {
-            $path = $env;
-            break;
-        }
+    $paths = [
+        realpath($parentDir . '/.env'),
+        realpath($parentDir . '/../.env'),
+    ];
+
+    if ( $parentDir !== $docRoot ) {
+        $paths[] = realpath($docRoot . '/.env');
+        $paths[] = realpath($docRoot . '/../.env');
     }
 
-    return $path;
+    $paths = array_filter($paths, __NAMESPACE__ . '\fileIsReadable');
+
+    return $paths[ 0 ] ?: false;
 }
 
 function getConfig($path)
