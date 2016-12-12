@@ -128,6 +128,8 @@ class Setup
                 $this->comment("Setting {$key}");
             }
 
+            $env = str_replace('PATH_TO_WP_CONTENT', dirname(__DIR__) . '/wp-content', $env);
+
             return file_put_contents(getcwd() . '/.env', $env);
         }
 
