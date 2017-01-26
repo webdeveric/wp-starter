@@ -41,7 +41,7 @@
   },
   "require": {
     "php": ">=5.5",
-    "johnpbloch/wordpress": "^4.7.0",
+    "johnpbloch/wordpress": "^4.7.2",
     "webdeveric/wp-starter-tweaks": "*",
     "wpackagist-plugin/rest-api": "^2.0-beta13",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
