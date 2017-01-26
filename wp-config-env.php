@@ -16,6 +16,8 @@ if (! $config) {
     exit(1);
 }
 
+define('APP_ENV', $config('APP_ENV', 'development'));
+
 define('WP_SITEURL',     $config('WP_SITEURL',     isset($_SERVER['HTTP_HOST']) ? 'http://' . $_SERVER['HTTP_HOST'] . '/cms' : ''));
 define('WP_HOME',        $config('WP_HOME',        isset($_SERVER['HTTP_HOST']) ? 'http://' . $_SERVER['HTTP_HOST'] : ''));
 define('WP_CONTENT_URL', $config('WP_CONTENT_URL', ! empty(WP_HOME) ? WP_HOME . '/wp-content' : ''));
@@ -50,6 +52,16 @@ define('WP_MEMORY_LIMIT',     $config('WP_MEMORY_LIMIT', '64M'));
 define('WP_MAX_MEMORY_LIMIT', $config('WP_MAX_MEMORY_LIMIT', '256M'));
 
 define('FORCE_SSL_ADMIN', $config('FORCE_SSL_ADMIN', false));
+
+define('WP_ALLOW_MULTISITE',   $config('WP_ALLOW_MULTISITE', false));
+define('MULTISITE',            $config('MULTISITE', false));
+define('SUBDOMAIN_INSTALL',    $config('SUBDOMAIN_INSTALL', false));
+define('DOMAIN_CURRENT_SITE',  $config('DOMAIN_CURRENT_SITE', $_SERVER['HTTP_HOST'] ?: ''));
+define('PATH_CURRENT_SITE',    $config('PATH_CURRENT_SITE', '/'));
+define('SITE_ID_CURRENT_SITE', $config('SITE_ID_CURRENT_SITE', 1));
+define('BLOG_ID_CURRENT_SITE', $config('BLOG_ID_CURRENT_SITE', 1));
+
+define('COOKIE_DOMAIN', $_SERVER['HTTP_HOST'] ?: false );
 
 $table_prefix = $config('DB_TABLE_PREFIX', 'wp_');
 
