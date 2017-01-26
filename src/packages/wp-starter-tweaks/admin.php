@@ -25,12 +25,17 @@ add_action('after_setup_theme', function () {
 add_filter('update_footer', __NAMESPACE__ . '\update_footer', PHP_INT_MAX, 1);
 
 add_action('admin_notices', function() {
-    if ( defined('WP_CONTENT_DIR') && ! is_readable(WP_CONTENT_DIR) ) {
-        printf(
-            '<div class="notice notice-error is-dismissible">
-                <p>Unable to read <code>WP_CONTENT_DIR</code> <code>%s</code></p>
-            </div>',
-            WP_CONTENT_DIR
-        );
+    if ( defined('WP_CONTENT_DIR') ) {
+        $content_dir_perms = fileperms(WP_CONTENT_DIR) & 0777;
+
+        if ( $content_dir_perms === 0777 ) {
+            printf(
+                '<div class="notice notice-error is-dismissible">
+                    <p><code>%s</code>: <code>%s</code> is too permissive.</p>
+                </div>',
+                WP_CONTENT_DIR,
+                decoct($content_dir_perms)
+            );
+        }
     }
 });
