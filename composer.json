@@ -7,7 +7,8 @@
     "starter",
     "project",
     "composer",
-    "dependency"
+    "dependency",
+    "Docker"
   ],
   "authors": [
     {
@@ -19,44 +20,56 @@
   ],
   "repositories": [
     {
-      "type": "git",
-      "url": "https://github.com/webdeveric/http-api-debug.git"
+      "type": "path",
+      "url": "./packages/*"
     },
     {
-      "type": "path",
-      "url": "./src/packages/*"
+      "type": "git",
+      "url": "https://github.com/webdeveric/http-api-debug.git"
     },
     {
       "type": "composer",
       "url": "https://wpackagist.org"
     }
   ],
-  "autoload": {
-    "files": [
-      "./src/helpers.php"
-    ],
-    "psr-4": {
-      "webdeveric\\WPStarter\\": "src/"
+  "config": {
+    "apcu-autoloader": true,
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "platform": {
+      "php": "7.1"
     }
   },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
   "require": {
-    "php": ">=5.5",
-    "johnpbloch/wordpress": "^4.7.2",
-    "webdeveric/wp-starter-tweaks": "*",
-    "wpackagist-plugin/rest-api": "^2.0-beta13",
-    "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
-    "wpackagist-plugin/recently-edited-content-widget": "^0.3.2",
-    "wpackagist-plugin/get-post-content-shortcode": "^0.4.0"
+    "php": ">=7.1",
+    "johnpbloch/wordpress": "^4.8",
+    "lplabs/wordpress-install-fixer": "^1.0",
+    "webdeveric/wp-tweaks": "^1.1.0",
+    "wpackagist-plugin/recently-edited-content-widget": "^0.3.2"
   },
   "require-dev": {
-    "webdeveric/http-api-debug": "dev-master"
+    "phpunit/phpunit": "^6.3",
+    "webdeveric/current-screen-info": "^0.1.0",
+    "webdeveric/http-api-debug": "dev-master",
+    "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
+    "wpackagist-plugin/wordpress-importer": "^0.6.3",
+    "wpackagist-theme/twentyseventeen": "1.3"
   },
   "extra": {
-    "wordpress-install-dir": "cms"
-  },
-  "scripts": {
-    "post-update-cmd": "webdeveric\\WPStarter\\Setup::getInstance",
-    "post-install-cmd": "webdeveric\\WPStarter\\Setup::getInstance",
-    "post-create-project-cmd": "webdeveric\\WPStarter\\Setup::getInstance"
+    "wordpress-install-dir": "public/cms",
+    "installer-paths": {
+      "public/wp-content/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "public/wp-content/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "public/wp-content/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    }
   }
 }

@@ -1,0 +1,63 @@
+version: '3'
+services:
+  dev:
+    build: .
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    volumes:
+      - ./packages:/app/packages
+      - ./public:/app/public
+      - ./vendor:/app/vendor
+      - ./xprofiler:/tmp/xprofiler
+      - ./docker/apache/apache.conf:/etc/apache2/conf-available/zzz-config.conf
+      - ./docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/zzz-overrides.ini
+    restart: always
+    env_file:
+      - ./app.env
+
+  phpunit:
+    image: phpunit/phpunit:6.0.6
+    volumes:
+      - ./:/app
+
+  composer:
+    image: composer:latest
+    volumes:
+      - ./:/app
+      - $SSH_AUTH_SOCK:/root/ssh-agent
+      - $HOME/.ssh:/root/.ssh
+      - $HOME/.composer/cache:/composer-cache
+    environment:
+      - SSH_AUTH_SOCK=/root/ssh-agent
+      - COMPOSER_CACHE_DIR=/composer-cache
+    env_file:
+      - ./app.env
+
+  composer-ci:
+    image: composer:latest
+    volumes:
+      - ./:/app
+      - $HOME/.ssh:/root/.ssh
+      - $HOME/.composer/cache:/composer-cache
+    environment:
+      - SSH_AUTH_SOCK=/root/ssh-agent
+      - COMPOSER_CACHE_DIR=/composer-cache
+      - ACF_PRO_KEY
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3333:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+    restart: always
+    env_file:
+      - ./db.env
+    command: "mysqld --max_allowed_packet=1073741824"
+
+volumes:
+  db_data:

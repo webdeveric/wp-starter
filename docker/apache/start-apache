@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+xdebugConfig="/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
+
+# Xdebug should only be enabled in development
+if [ "$APP_ENV" == "development" ]; then
+
+  # Enable the extension if the config file doesn't exist
+  if [ ! -f "$xdebugConfig" ]; then
+    docker-php-ext-enable xdebug
+    echo "xdebug enabled"
+  fi
+
+else
+
+  if [ -f "$xdebugConfig" ]; then
+    rm -f $xdebugConfig
+  fi
+
+fi
+
+exec apache2-foreground
