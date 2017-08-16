@@ -31,13 +31,15 @@ composer create-project --repository '{"type":"git","url":"https://github.com/we
 
 ### Local development
 
-If you have [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/) you can run `docker-compose up dev` to get started quickly.
+I've included a [Dockerfile](Dockerfile) that is based on `php:7.1-apache`. Some additional modules, such as Xdebug, APC, and APCu are also installed.
 
-I've included a sample DB. It will be created the first time you run `up`.
+A sample DB is also included. It will be created when you build.
 
-The username and password are both `wp`.
+The WordPress username and password are both `wp`.
 
-To install dependencies, you can run `docker-compose run --rm composer install`
+To get started, run `make install` then `make dev`.
+
+You may want to view the [Makefile](Makefile) to see all the commands.
 
 ## Useful links
 
