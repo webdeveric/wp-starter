@@ -31,27 +31,18 @@ composer create-project --repository '{"type":"git","url":"https://github.com/we
 
 ### Local development
 
-```bash
-composer install
-```
+If you have [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/) you can run `docker-compose up dev` to get started quickly.
 
-## Configuration
+I've included a sample DB. It will be created the first time you run `up`.
 
-Configuration values are stored in a `.env` file.
-If you ran `composer create-project`, a config file was automatically created for you in your project directory.
+The username and password are both `wp`.
 
-By default, `.env` will be loaded from the document root or one level above the document root.
-
-If you'd like to store your `.env` file somewhere else, you can by defining an environment variable named `WP_ENV` and set its value to the absolute path of your `.env` file.
-
-Example for Apache:
-
-```apacheconf
-SetEnv WP_ENV /your/path/to/.env
-```
+To install dependencies, you can run `docker-compose run --rm composer install`
 
 ## Useful links
 
 - [Composer](https://getcomposer.org/)
 - [WordPress Packagist](http://wpackagist.org)
 - [WP Codex: Giving WordPress Its Own Directory](https://codex.wordpress.org/Giving_WordPress_Its_Own_Directory)
+- [Install Docker](https://docs.docker.com/engine/installation/)
+- [Install Docker Compose](https://docs.docker.com/compose/install/)
