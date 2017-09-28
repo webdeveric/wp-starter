@@ -3,14 +3,15 @@ ORG := webdeveric
 IMAGE_NAME := $(ORG)/$(SERVICE_ID)
 HOST_PORT := 8000
 CONTAINER_PORT := 80
+SHELL := /usr/bin/env bash
 
 .PHONY: instructions install build dev test
 .PHONY: clean startover rm-containers rm-images fix-owner fix-perms folders
 
 instructions:
-	@echo "\n\tRun these commands to get started:\n"
-	@echo "\tmake install"
-	@echo "\tmake dev\n"
+	-@ echo -e "\n\tRun these commands to get started:\n"
+	-@ echo -e "\tmake install"
+	-@ echo -e "\tmake dev\n"
 
 dev: folders rm-containers
 	docker-compose up dev
