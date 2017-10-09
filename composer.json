@@ -18,6 +18,20 @@
       "role": "Developer"
     }
   ],
+  "scripts": {
+    "cs": "phpcbf",
+    "md": "phpmd 'packages,tests' text phpmd.xml",
+    "test": "phpunit --colors=always --coverage-text",
+    "pre-commit": [
+      "@cs",
+      "@md",
+      "@test"
+    ],
+    "setup-hooks": [
+      "php -r \"copy('./hooks/pre-commit', '.git/hooks/pre-commit');\"",
+      "php -r \"chmod('.git/hooks/pre-commit', 0700);\""
+    ]
+  },
   "repositories": [
     {
       "type": "path",
@@ -51,7 +65,9 @@
     "wpackagist-plugin/recently-edited-content-widget": "^0.3.2"
   },
   "require-dev": {
+    "phpmd/phpmd": "^2.6",
     "phpunit/phpunit": "^6.3",
+    "squizlabs/php_codesniffer": "^3.1",
     "webdeveric/current-screen-info": "^0.1.0",
     "webdeveric/http-api-debug": "dev-master",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",

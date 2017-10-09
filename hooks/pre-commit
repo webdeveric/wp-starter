@@ -1,0 +1,19 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+NC='\033[0m' # No color
+
+if [ -f ~/.bash_profile ]; then
+  source ~/.bash_profile
+fi
+
+if [ -f ./composer.phar ]; then
+  php ./composer.phar pre-commit
+else
+  if composer_path="$(type -p composer)" && [ ! -z "$composer_path" ]; then
+    $composer_path pre-commit
+  else
+    printf "${RED}Composer not found!${NC}\n"
+    exit 1
+  fi
+fi

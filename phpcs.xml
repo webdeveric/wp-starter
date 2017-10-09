@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standards">
+  <file>./packages/</file>
+  <file>./tests/</file>
+
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+
+  <arg name="colors"/>
+  <arg name="encoding" value="utf-8"/>
+  <arg name="extensions" value="php"/>
+  <arg name="tab-width" value="4"/>
+
+  <rule ref="PSR2"/>
+  <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
+    <type>warning</type>
+  </rule>
+</ruleset>
