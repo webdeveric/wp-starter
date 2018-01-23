@@ -52,14 +52,14 @@
     "sort-packages": true,
     "preferred-install": "dist",
     "platform": {
-      "php": "7.1"
+      "php": "7.2"
     }
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "php": ">=7.1",
-    "johnpbloch/wordpress": "^4.8",
+    "php": ">=7.2",
+    "johnpbloch/wordpress": "^4.9",
     "lplabs/wordpress-install-fixer": "^1.0",
     "webdeveric/wp-tweaks": "^1.1.0",
     "wpackagist-plugin/recently-edited-content-widget": "^0.3.2"
@@ -68,7 +68,7 @@
     "phpmd/phpmd": "^2.6",
     "phpunit/phpunit": "^6.3",
     "squizlabs/php_codesniffer": "^3.1",
-    "webdeveric/current-screen-info": "^0.1.0",
+    "webdeveric/current-screen-info": "^0.2.0",
     "webdeveric/http-api-debug": "dev-master",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
     "wpackagist-plugin/wordpress-importer": "^0.6.3",
