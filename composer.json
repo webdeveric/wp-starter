@@ -1,7 +1,8 @@
 {
   "name": "webdeveric/wp-starter",
   "description": "WordPress dependency management with Composer",
-  "license": "proprietary",
+  "license": "GPL-3.0-or-later",
+  "type": "project",
   "keywords": [
     "WordPress",
     "starter",
@@ -23,6 +24,7 @@
     "md": "phpmd 'packages,tests' text phpmd.xml",
     "test": "phpunit --colors=always --coverage-text",
     "pre-commit": [
+      "@composer validate --strict",
       "@cs",
       "@md",
       "@test"
@@ -60,7 +62,9 @@
   "require": {
     "php": ">=7.2",
     "johnpbloch/wordpress": "^4.9",
+    "lonelyplanet/append-file-hash": "^1.0",
     "lplabs/wordpress-install-fixer": "^1.0",
+    "webdeveric/sample-plugin": "^1.0",
     "webdeveric/wp-tweaks": "^1.1.0",
     "wpackagist-plugin/recently-edited-content-widget": "^0.3.2"
   },

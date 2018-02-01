@@ -2,6 +2,8 @@
 
 Add your custom Composer packages here.
 
+A [sample plugin](sample-plugin) is included so you can see the basic requirements.
+
 ## Steps
 
 - Create new directory and `cd` into it.

@@ -1,0 +1,19 @@
+{
+  "name": "webdeveric/sample-plugin",
+  "description": "Sample plugin",
+  "version": "1.0.0",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Eric King",
+      "email": "eric@webdeveric.com",
+      "homepage": "http://webdeveric.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "composer/installers": "^1.0"
+  }
+}
