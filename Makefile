@@ -40,6 +40,8 @@ rm-images:
 
 folders:
 	-@ mkdir -p ./{packages,public,tests,vendor}
+	-@ mkdir -p ./public/wp-content/{uploads,plugins,mu-plugins,themes}
+	-@ mkdir -p ./public/wp-content/uploads/wp-personal-data-exports
 
 fix-owner:
 	find . -maxdepth 1 -type d \( -name public -o -name packages -o -name xprofiler -o -name vendor \) -exec sudo chown -R $(shell id -u):$(shell id -g) {} \;
