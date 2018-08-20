@@ -4,7 +4,6 @@
 .env
 index.php
 Thumbs.db
-composer.lock
 composer.phar
 npm-debug.log
 node_modules/

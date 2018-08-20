@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-<ruleset name="Custom Standards">
+<ruleset name="Eric's Standards">
   <file>./packages/</file>
   <file>./tests/</file>
 
   <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
 
   <arg name="colors"/>
   <arg name="encoding" value="utf-8"/>
@@ -11,7 +12,23 @@
   <arg name="tab-width" value="4"/>
 
   <rule ref="PSR2"/>
+
+  <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+    <type>error</type>
+  </rule>
+
+  <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
+    <type>error</type>
+  </rule>
+
   <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
-    <type>warning</type>
+    <type>error</type>
+  </rule>
+
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="200"/>
+      <property name="absoluteLineLimit" value="225"/>
+    </properties>
   </rule>
 </ruleset>
