@@ -1,19 +1,114 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 RED='\033[0;31m'
-NC='\033[0m' # No color
+LIGHT_CYAN='\e[96m'
+LIGHT_GREEN='\e[92m'
+NO_COLOR='\033[0m'
 
-if [ -f ~/.bash_profile ]; then
-  source ~/.bash_profile
+function staged-php-files()
+{
+  git diff --cached --name-only --diff-filter=d | grep '\.php$'
+}
+
+function notice-message()
+{
+  printf "${LIGHT_CYAN}${1}${NO_COLOR}\n"
+}
+
+function success-message()
+{
+  printf "${LIGHT_GREEN}${1}${NO_COLOR}\n"
+}
+
+function error-message()
+{
+  printf "${RED}${1}${NO_COLOR}\n"
+}
+
+STAGED_PHP_FILES=`staged-php-files`
+ALL_STAGED_PHP_FILES=`staged-php-files | tr -s '\\n' ' '`
+CSV_STAGED_PHP_FILES=`staged-php-files | tr -s '\\n' ',' | rev | cut -c 2- | rev`
+
+if [ ! -n "$CSV_STAGED_PHP_FILES" ]; then
+  notice-message "👍  There are not any staged PHP files. Skipping checks."
+
+  exit 0
 fi
 
+notice-message "🔎  Checking PHP syntax"
+
+for FILE in $STAGED_PHP_FILES
+do
+  php -l -d display_errors=0 $FILE
+
+  if [ $? != 0 ]
+  then
+    error-message "🚫  Fix syntax errors"
+
+    exit 1
+  fi
+done
+
+notice-message "👀️  Looking for composer"
+
 if [ -f ./composer.phar ]; then
-  php ./composer.phar pre-commit
+  composer_path=./composer.phar
+  success-message "✅  local composer.phar found"
 else
   if composer_path="$(type -p composer)" && [ ! -z "$composer_path" ]; then
-    $composer_path pre-commit
+    success-message "✅  global composer found"
   else
-    printf "${RED}Composer not found!${NC}\n"
+    error-message "🚫  Composer not found!"
+
     exit 1
   fi
 fi
+
+notice-message "🔎  Validating composer.json"
+
+$composer_path validate --strict > /dev/null
+
+if [ $? != 0 ]
+then
+  error-message "🤦‍♂️  Please fix validation errors/warnings"
+fi
+
+notice-message "🔎  Checking coding style"
+
+$composer_path cs $ALL_STAGED_PHP_FILES
+
+if [ $? != 0 ]
+then
+  error-message "🚫  Fix the coding style"
+
+  exit $?
+fi
+
+notice-message "🔎  Checking coding mess"
+
+$composer_path phpmd $CSV_STAGED_PHP_FILES text ./phpmd.xml
+
+if [ $? != 0 ]
+then
+  error-message "🚫  Fix the messy code"
+
+  exit $?
+fi
+
+notice-message "🏃  Running tests";
+
+$composer_path test
+
+if [ $? != 0 ]
+then
+  error-message "🚫  Tests must pass"
+
+  exit $?
+fi
+
+if [ $? = 0 ]
+then
+  printf "\n👍  Done\n\n"
+fi
+
+exit $?
