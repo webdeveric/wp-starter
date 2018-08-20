@@ -9,7 +9,10 @@ if [ "$APP_ENV" == "development" ]; then
   # Enable the extension if the config file doesn't exist
   if [ ! -f "$xdebugConfig" ]; then
     docker-php-ext-enable xdebug
-    echo "xdebug enabled"
+
+    if [ -f "$xdebugConfig" ]; then
+      echo "xdebug enabled"
+    fi
   fi
 
 else
