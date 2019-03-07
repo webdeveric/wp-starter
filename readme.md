@@ -33,11 +33,15 @@ composer create-project -s dev --prefer-dist --no-interaction -- webdeveric/wp-s
 
 Run `composer setup-hooks` to setup the git `pre-commit` hook. It will check coding standards and run tests when you commit.
 
-I've included a [Dockerfile](Dockerfile) that is based on `php:7.2-apache`. Some additional modules, such as Xdebug, APC, and APCu are also installed.
+I've included a [Dockerfile](Dockerfile) that is based on `php:7.3-apache`. Some additional modules, such as Xdebug, APC, and APCu are also installed.
 
 A sample DB will be imported the first time you build. The WordPress username and password are both `wp`.
 
-To get started, run `make install` then `make dev`.
+To get started, run the following:
+
+:one: `make install`
+
+:two: `make dev`
 
 You may want to view the [Makefile](Makefile) to see all the commands.
 
