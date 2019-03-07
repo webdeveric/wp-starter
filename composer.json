@@ -62,14 +62,14 @@
     "sort-packages": true,
     "preferred-install": "dist",
     "platform": {
-      "php": "7.2"
+      "php": "7.3"
     }
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "php": ">=7.2",
-    "johnpbloch/wordpress": "^4.9",
+    "php": ">=7.3",
+    "johnpbloch/wordpress": "^5.0",
     "lonelyplanet/append-file-hash": "^1.0",
     "lplabs/wordpress-install-fixer": "^1.0",
     "webdeveric/sample-plugin": "^1.0",
@@ -78,13 +78,13 @@
   },
   "require-dev": {
     "phpmd/phpmd": "^2.6",
-    "phpunit/phpunit": "^6.5.3",
+    "phpunit/phpunit": "^8.0",
     "squizlabs/php_codesniffer": "^3.1",
     "webdeveric/current-screen-info": "^0.2.0",
     "webdeveric/http-api-debug": "dev-master",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
     "wpackagist-plugin/wordpress-importer": "^0.6.3",
-    "wpackagist-theme/twentyseventeen": "~1.6"
+    "wpackagist-theme/twentyseventeen": "~2.1"
   },
   "extra": {
     "wordpress-install-dir": "public/cms",

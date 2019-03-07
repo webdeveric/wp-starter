@@ -17,7 +17,7 @@ dev: folders rm-containers
 	docker-compose up dev
 
 test:
-	docker-compose run --rm phpunit ./tests/
+	docker-compose run --rm cli vendor/bin/phpunit ./tests/
 
 build: folders install
 	docker image build -t $(IMAGE_NAME) .

@@ -18,10 +18,11 @@ services:
     env_file:
       - ./app.env
 
-  phpunit:
-    image: phpunit/phpunit:6.0.6
+  cli:
+    image: php:7.3-cli-alpine
     volumes:
       - ./:/app
+    working_dir: /app
 
   composer:
     image: composer:latest

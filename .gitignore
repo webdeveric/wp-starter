@@ -2,6 +2,7 @@
 .DS_Store
 .htaccess
 .env
+.phpunit.result.cache
 index.php
 Thumbs.db
 composer.phar
