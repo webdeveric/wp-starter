@@ -84,7 +84,7 @@
     "webdeveric/http-api-debug": "dev-master",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
     "wpackagist-plugin/wordpress-importer": "^0.6.3",
-    "wpackagist-theme/twentyseventeen": "~2.1"
+    "wpackagist-theme/twentynineteen": "^1.4"
   },
   "extra": {
     "wordpress-install-dir": "public/cms",
