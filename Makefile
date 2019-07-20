@@ -49,3 +49,8 @@ fix-owner:
 fix-perms: folders
 	sudo find ./{packages,public,vendor} -type d -not -perm 775 -exec sudo chmod 775 {} \;
 	sudo find ./{packages,public,vendor} -type f -not -perm 664 -exec sudo chmod 664 {} \;
+
+dump-db:
+	-@ echo "Dumping DB..."
+	-@ docker-compose exec db mysqldump -u wp -pwp wp --skip-comments -r /docker-entrypoint-initdb.d/wp-starter.sql > /dev/null
+	-@ echo "Done!"
