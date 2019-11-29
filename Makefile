@@ -17,13 +17,13 @@ dev: folders rm-containers
 	docker-compose up dev
 
 test:
-	docker-compose run --rm cli vendor/bin/phpunit ./tests/
+	docker-compose run --rm --user="$(shell id -u):$(shell id -g)" cli vendor/bin/phpunit ./tests/
 
 build: folders install
 	docker image build -t $(IMAGE_NAME) .
 
 install:
-	docker-compose run --rm composer install
+	docker-compose run --rm --user="$(shell id -u):$(shell id -g)" composer install
 
 startover: clean fix-owner
 	sudo rm -Rf ./vendor/ ./public/index.php ./public/cms/ ./public/wp-content/

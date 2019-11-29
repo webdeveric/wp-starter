@@ -1,4 +1,4 @@
-FROM php:7.3-apache-stretch
+FROM php:7.4-apache-buster
 
 LABEL maintainer "eric@webdeveric.com"
 
@@ -18,7 +18,7 @@ RUN \
   docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr && \
   docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) exif gd iconv intl mysqli opcache xsl zip && \
   pecl channel-update pecl.php.net && \
-  pecl install apcu-5.1.17 apcu_bc-1.0.5 xdebug-2.7.0 && \
+  pecl install apcu-5.1.18 apcu_bc-1.0.5 xdebug-2.8.0 && \
   docker-php-ext-enable apcu && \
   docker-php-ext-enable --ini-name zzz-apc.ini apc && \
   apt-get purge -y --auto-remove \

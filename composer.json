@@ -62,18 +62,18 @@
     "sort-packages": true,
     "preferred-install": "dist",
     "platform": {
-      "php": "7.3"
+      "php": "7.4"
     }
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "php": ">=7.3",
+    "php": ">=7.4",
     "johnpbloch/wordpress": "^5.0",
     "lonelyplanet/append-file-hash": "^1.0",
     "lplabs/wordpress-install-fixer": "^1.0",
     "webdeveric/sample-plugin": "^1.0",
-    "webdeveric/wp-tweaks": "^1.1.0",
+    "webdeveric/wp-tweaks": "^1.1.1",
     "wpackagist-plugin/recently-edited-content-widget": "^0.3.2"
   },
   "require-dev": {
