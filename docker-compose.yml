@@ -19,7 +19,7 @@ services:
       - ./app.env
 
   cli:
-    image: php:7.3-cli-alpine
+    image: php:7.4-cli-alpine
     volumes:
       - ./:/app
     working_dir: /app
