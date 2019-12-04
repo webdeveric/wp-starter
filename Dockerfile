@@ -6,17 +6,19 @@ ENV APP_ENV=production
 
 RUN \
   apt-get update && apt-get install -y \
+    libfreetype6 \
     libfreetype6-dev \
     libicu-dev \
     libxslt1-dev \
-    libfreetype6 \
     libjpeg-dev \
     libpng-dev \
+    libwebp-dev \
+    libxpm-dev \
     libxslt1.1 \
     libzip-dev \
     --no-install-recommends && \
-  docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr && \
-  docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) exif gd iconv intl mysqli opcache xsl zip && \
+  docker-php-ext-configure gd --with-gd --with-webp-dir --with-jpeg-dir --with-png-dir --with-zlib-dir --with-xpm-dir --with-freetype-dir && \
+  docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) exif gd iconv intl mysqli opcache pdo_mysql xsl zip && \
   pecl channel-update pecl.php.net && \
   pecl install apcu-5.1.18 apcu_bc-1.0.5 xdebug-2.8.0 && \
   docker-php-ext-enable apcu && \
