@@ -20,10 +20,13 @@ test:
 	docker-compose run --rm --user="$(shell id -u):$(shell id -g)" cli vendor/bin/phpunit ./tests/
 
 build: folders install
-	docker image build -t $(IMAGE_NAME) .
+	@echo "Building Docker image"
+	@DOCKER_BUILDKIT=1 docker image build -t $(IMAGE_NAME) .
+	@echo "$(IMAGE_NAME) has been created"
 
 install:
-	docker-compose run --rm --user="$(shell id -u):$(shell id -g)" composer install
+	@echo "Installing dependencies"
+	@docker-compose run --rm --user="$(shell id -u):$(shell id -g)" composer install
 
 startover: clean fix-owner
 	sudo rm -Rf ./vendor/ ./public/index.php ./public/cms/ ./public/wp-content/
@@ -31,15 +34,23 @@ startover: clean fix-owner
 clean: rm-containers rm-images
 
 rm-containers:
+	@echo "Removing containers..."
 	-@ docker-compose down --remove-orphans
-	-@ docker container ls -aq -f "status=running" -f "label=service-id=$(SERVICE_ID)" | xargs -I {} docker container kill {}
-	-@ docker container ls -aq -f "status=exited" -f "label=service-id=$(SERVICE_ID)" | xargs -I {} docker container rm {}
+	@echo "Killing running containers"
+	-@ docker container ls -aq -f "status=running" -f "label=com.webdeveric.wp-starter.service-id=$(SERVICE_ID)" | xargs -I {} docker container kill {}
+	@echo "Removing exited containers"
+	-@ docker container ls -aq -f "status=exited" -f "label=com.webdeveric.wp-starter.service-id=$(SERVICE_ID)" | xargs -I {} docker container rm {}
+	@echo "Containers have been removed"
 
 rm-images:
-	-@ docker image ls -aq -f "dangling=true" -f "label=service-id=$(SERVICE_ID)" | xargs -I {} docker image rm -f {}
+	@echo "Removing images"
+	@docker image ls -q -f "label=com.webdeveric.wp-starter.service-id=$(SERVICE_ID)" | xargs -I {} docker image rm -f {}
+	@echo "Images removed"
 
 folders:
+	@echo "Creating project folders"
 	-@ mkdir -p ./{packages,public,tests,vendor}
+	@echo "Creating WordPress folders"
 	-@ mkdir -p ./public/wp-content/{uploads,plugins,mu-plugins,themes}
 	-@ mkdir -p ./public/wp-content/uploads/wp-personal-data-exports
 

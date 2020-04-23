@@ -1,6 +1,8 @@
 FROM php:7.4-apache-buster
 
 LABEL maintainer "eric@webdeveric.com"
+LABEL com.webdeveric.wp-starter.service-id=wp-starter
+LABEL com.webdeveric.wp-starter.component-id=wp-starter-web
 
 ENV APP_ENV=production
 
@@ -17,10 +19,10 @@ RUN \
     libxslt1.1 \
     libzip-dev \
     --no-install-recommends && \
-  docker-php-ext-configure gd --with-gd --with-webp-dir --with-jpeg-dir --with-png-dir --with-zlib-dir --with-xpm-dir --with-freetype-dir && \
-  docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) exif gd iconv intl mysqli opcache pdo_mysql xsl zip && \
+  docker-php-ext-configure gd --with-webp --with-jpeg --with-xpm --with-freetype && \
+  docker-php-ext-install -j$(nproc) exif gd iconv intl mysqli opcache pdo_mysql xsl zip && \
   pecl channel-update pecl.php.net && \
-  pecl install apcu-5.1.18 apcu_bc-1.0.5 xdebug-2.8.0 && \
+  pecl install apcu-5.1.18 apcu_bc-1.0.5 xdebug-2.9.4 && \
   docker-php-ext-enable apcu && \
   docker-php-ext-enable --ini-name zzz-apc.ini apc && \
   apt-get purge -y --auto-remove \
