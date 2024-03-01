@@ -19,13 +19,13 @@ services:
       - ./app.env
 
   cli:
-    image: php:7.4-cli-alpine
+    image: php:8.3-cli-alpine
     volumes:
       - ./:/app
     working_dir: /app
 
   composer:
-    image: composer:latest
+    image: composer:2
     volumes:
       - ./:/app
       - $SSH_AUTH_SOCK:/root/ssh-agent
@@ -38,7 +38,7 @@ services:
       - ./app.env
 
   composer-ci:
-    image: composer:latest
+    image: composer:2
     volumes:
       - ./:/app
       - $HOME/.ssh:/root/.ssh
@@ -49,7 +49,7 @@ services:
       - ACF_PRO_KEY
 
   db:
-    image: mysql:5.7
+    image: mysql:8.3
     ports:
       - "3333:3306"
     volumes:
@@ -58,7 +58,6 @@ services:
     restart: always
     env_file:
       - ./db.env
-    command: "mysqld --max_allowed_packet=1073741824"
 
 volumes:
   db_data:

@@ -1,4 +1,4 @@
-FROM php:7.4-apache-buster
+FROM php:8.3-apache
 
 LABEL maintainer "eric@webdeveric.com"
 LABEL com.webdeveric.wp-starter.service-id=wp-starter
@@ -22,9 +22,7 @@ RUN \
   docker-php-ext-configure gd --with-webp --with-jpeg --with-xpm --with-freetype && \
   docker-php-ext-install -j$(nproc) exif gd iconv intl mysqli opcache pdo_mysql xsl zip && \
   pecl channel-update pecl.php.net && \
-  pecl install apcu-5.1.18 apcu_bc-1.0.5 xdebug-2.9.4 && \
-  docker-php-ext-enable apcu && \
-  docker-php-ext-enable --ini-name zzz-apc.ini apc && \
+  pecl install xdebug-3.3.1 && \
   apt-get purge -y --auto-remove \
     libfreetype6-dev \
     libicu-dev \
