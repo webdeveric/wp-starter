@@ -62,29 +62,35 @@
     "sort-packages": true,
     "preferred-install": "dist",
     "platform": {
-      "php": "7.4"
+      "php": "8.3"
+    },
+    "allow-plugins": {
+      "composer/installers": true,
+      "johnpbloch/wordpress-core-installer": true,
+      "webdeveric/wordpress-muplugin-installer": true,
+      "webdeveric/wordpress-install-fixer": true
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": ">=7.4",
-    "johnpbloch/wordpress": "^5.0",
-    "lonelyplanet/append-file-hash": "^1.0",
-    "lplabs/wordpress-install-fixer": "^1.0",
-    "webdeveric/sample-plugin": "^1.0",
-    "webdeveric/wp-tweaks": "^1.1.1",
+    "php": ">=8",
+    "johnpbloch/wordpress": "^6.4.3",
+    "webdeveric/sample-plugin": "^1.0.0",
+    "webdeveric/wordpress-install-fixer": "^2.0.0",
+    "webdeveric/wordpress-muplugin-installer": "^3.0.1",
+    "webdeveric/wp-tweaks": "^2.0.1",
     "wpackagist-plugin/recently-edited-content-widget": "^0.3.2"
   },
   "require-dev": {
-    "phpmd/phpmd": "^2.6",
-    "phpunit/phpunit": "^9.0",
-    "squizlabs/php_codesniffer": "^3.1",
-    "webdeveric/current-screen-info": "^0.2.0",
+    "phpmd/phpmd": "^2.6.0",
+    "phpunit/phpunit": "^11.0.3",
+    "squizlabs/php_codesniffer": "^3.1.0",
     "webdeveric/http-api-debug": "dev-master",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
-    "wpackagist-plugin/wordpress-importer": "^0.7.0",
-    "wpackagist-theme/twentynineteen": "^1.4"
+    "wpackagist-plugin/wordpress-importer": "^0.8.2",
+    "wpackagist-theme/twentynineteen": "^2.7.0",
+    "wpackagist-theme/twentytwentyfour": "^1.0.0"
   },
   "extra": {
     "wordpress-install-dir": "public/cms",
