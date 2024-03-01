@@ -28,6 +28,14 @@ install:
 	@echo "Installing dependencies"
 	@docker-compose run --rm --user="$(shell id -u):$(shell id -g)" composer install
 
+upgrade:
+	@echo "Upgrading dependencies"
+	@docker-compose run --rm --user="$(shell id -u):$(shell id -g)" composer upgrade
+
+outdated:
+	@echo "Outdated dependencies"
+	@docker-compose run --rm --user="$(shell id -u):$(shell id -g)" composer outdated
+
 startover: clean fix-owner
 	sudo rm -Rf ./vendor/ ./public/index.php ./public/cms/ ./public/wp-content/
 
