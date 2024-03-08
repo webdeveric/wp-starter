@@ -10,6 +10,7 @@ services:
       - ./packages:/app/packages
       - ./public:/app/public
       - ./vendor:/app/vendor
+      - ./themes:/app/public/themes
       - ./xprofiler:/tmp/xprofiler
       - ./docker/apache/apache.conf:/etc/apache2/conf-available/zzz-config.conf
       - ./docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
@@ -49,15 +50,24 @@ services:
       - ACF_PRO_KEY
 
   db:
-    image: mysql:8.3
-    ports:
-      - "3333:3306"
+    image: mariadb:10.11
     volumes:
       - db_data:/var/lib/mysql
-      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mariadb/initdb.d:/docker-entrypoint-initdb.d
     restart: always
     env_file:
       - ./db.env
+    command: "mysqld --max_allowed_packet=1073741824"
+
+  db-client:
+    image: mariadb:10.11
+    entrypoint:
+      - "mysql"
+      - "-hdb"
+      - "-pwp"
+      - "wp"
+    depends_on:
+      - db
 
 volumes:
   db_data:
