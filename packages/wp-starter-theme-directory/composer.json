@@ -1,0 +1,33 @@
+{
+  "name": "webdeveric/wp-starter-theme-directory",
+  "description": "Register the theme directory",
+  "type": "wordpress-muplugin",
+  "license": "GPL-2.0+",
+  "keywords": [
+    "WordPress",
+    "tweaks"
+  ],
+  "authors": [
+    {
+      "name": "Eric King",
+      "email": "eric@webdeveric.com",
+      "homepage": "http://webdeveric.com",
+      "role": "Developer"
+    }
+  ],
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/webdeveric"
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "webdeveric/wordpress-muplugin-installer": true
+    }
+  },
+  "require": {
+    "webdeveric/wordpress-muplugin-installer": "^3.0.1"
+  }
+}

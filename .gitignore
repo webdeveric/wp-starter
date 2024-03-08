@@ -16,3 +16,4 @@ node_modules/
 /public/*
 !/public/wp-config.php
 /xprofiler/
+/themes/
