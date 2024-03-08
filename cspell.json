@@ -1,5 +1,10 @@
 {
   "version": "0.2",
-  "words": [],
-  "ignorePaths": ["./composer.json", "./composer.lock"]
+  "words": [
+    "CODEOWNERS"
+  ],
+  "ignorePaths": [
+    "./composer.json",
+    "./composer.lock"
+  ]
 }
