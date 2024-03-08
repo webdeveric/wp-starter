@@ -42,6 +42,12 @@
   "scripts-descriptions": {
     "setup-hooks": "Setup the git pre-commit hook"
   },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/webdeveric/"
+    }
+  ],
   "repositories": [
     {
       "type": "path",
