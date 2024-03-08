@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7402dfc3a6cda511fd5f466ba598106",
+    "content-hash": "0bcbc448ba9328276ce6cf05c9b3a2df",
     "packages": [
         {
             "name": "composer/installers",
@@ -566,6 +566,33 @@
                 "source": "https://github.com/webdeveric/wordpress-muplugin-installer"
             },
             "time": "2024-03-01T13:55:01+00:00"
+        },
+        {
+            "name": "webdeveric/wp-delete-posts",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webdeveric/wp-delete-posts.git",
+                "reference": "735eaff656a9115ad6ff1e64cc59afe022c006f9"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "default-branch": true,
+            "type": "wordpress-plugin",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Eric King",
+                    "email": "eric@webdeveric.com",
+                    "homepage": "http://webdeveric.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Delete WordPress posts by URL",
+            "time": "2024-03-08T19:51:10+00:00"
         },
         {
             "name": "webdeveric/wp-starter-theme-directory",
@@ -3500,6 +3527,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "webdeveric/wp-delete-posts": 20,
         "webdeveric/http-api-debug": 20
     },
     "prefer-stable": true,

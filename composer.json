@@ -59,6 +59,10 @@
     },
     {
       "type": "git",
+      "url": "https://github.com/webdeveric/wp-delete-posts.git"
+    },
+    {
+      "type": "git",
       "url": "https://github.com/webdeveric/wp-user-agent.git"
     },
     {
@@ -86,11 +90,12 @@
   "require": {
     "php": ">=8",
     "johnpbloch/wordpress": "^6.4.3",
+    "webdeveric/current-screen-info": "^0.3.1",
+    "webdeveric/wp-delete-posts": "dev-master",
     "webdeveric/sample-plugin": "^1.0.0",
-    "webdeveric/wp-starter-theme-directory": "*",
     "webdeveric/wordpress-install-fixer": "^2.0.0",
     "webdeveric/wordpress-muplugin-installer": "^3.0.1",
-    "webdeveric/current-screen-info": "^0.3.1",
+    "webdeveric/wp-starter-theme-directory": "*",
     "webdeveric/wp-tweaks": "^2.0.1",
     "webdeveric/wp-user-agent": "^0.4.0",
     "wpackagist-plugin/recently-edited-content-widget": "^0.3.2"
