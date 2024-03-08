@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12295fd83af6c867799b651af34a24e4",
+    "content-hash": "c7402dfc3a6cda511fd5f466ba598106",
     "packages": [
         {
             "name": "composer/installers",
@@ -373,6 +373,49 @@
             "time": "2023-11-16T16:21:57+00:00"
         },
         {
+            "name": "webdeveric/current-screen-info",
+            "version": "0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webdeveric/current-screen-info.git",
+                "reference": "f292f78b45490e684f94d2427a5871658914c0ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webdeveric/current-screen-info/zipball/f292f78b45490e684f94d2427a5871658914c0ef",
+                "reference": "f292f78b45490e684f94d2427a5871658914c0ef",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric King",
+                    "email": "eric@webdeveric.com",
+                    "homepage": "http://webdeveric.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add debugging info about the current screen to the help tab",
+            "support": {
+                "issues": "https://github.com/webdeveric/current-screen-info/issues",
+                "source": "https://github.com/webdeveric/current-screen-info/tree/0.3.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/webdeveric",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-08T15:23:38+00:00"
+        },
+        {
             "name": "webdeveric/sample-plugin",
             "version": "1.0.0",
             "dist": {
@@ -525,6 +568,44 @@
             "time": "2024-03-01T13:55:01+00:00"
         },
         {
+            "name": "webdeveric/wp-starter-theme-directory",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./packages/wp-starter-theme-directory",
+                "reference": "c9ebc1f5e6ddec6116000826c60dbae2d8899b36"
+            },
+            "require": {
+                "webdeveric/wordpress-muplugin-installer": "^3.0.1"
+            },
+            "type": "wordpress-muplugin",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric King",
+                    "email": "eric@webdeveric.com",
+                    "homepage": "http://webdeveric.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Register the theme directory",
+            "keywords": [
+                "WordPress",
+                "tweaks"
+            ],
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/webdeveric"
+                }
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "webdeveric/wp-tweaks",
             "version": "2.0.1",
             "source": {
@@ -566,6 +647,39 @@
             "time": "2024-03-01T14:07:51+00:00"
         },
         {
+            "name": "webdeveric/wp-user-agent",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webdeveric/wp-user-agent.git",
+                "reference": "12706aa11cc1ae794bf3ea5c3eefcd45a895dc0a"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0",
+                "php": ">=5.5"
+            },
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eric King",
+                    "email": "eric@webdeveric.com",
+                    "homepage": "http://webdeveric.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Customize the user agent WordPress uses for remote requests.",
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/webdeveric"
+                }
+            ],
+            "time": "2024-03-08T17:46:13+00:00"
+        },
+        {
             "name": "wpackagist-plugin/recently-edited-content-widget",
             "version": "0.3.2",
             "source": {
@@ -587,16 +701,16 @@
     "packages-dev": [
         {
             "name": "composer/pcre",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/pcre.git",
-                "reference": "00104306927c7a0919b4ced2aaa6782c1e61a3c9"
+                "reference": "4775f35b2d70865807c89d32c8e7385b86eb0ace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/pcre/zipball/00104306927c7a0919b4ced2aaa6782c1e61a3c9",
-                "reference": "00104306927c7a0919b4ced2aaa6782c1e61a3c9",
+                "url": "https://api.github.com/repos/composer/pcre/zipball/4775f35b2d70865807c89d32c8e7385b86eb0ace",
+                "reference": "4775f35b2d70865807c89d32c8e7385b86eb0ace",
                 "shasum": ""
             },
             "require": {
@@ -638,7 +752,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/pcre/issues",
-                "source": "https://github.com/composer/pcre/tree/3.1.1"
+                "source": "https://github.com/composer/pcre/tree/3.1.2"
             },
             "funding": [
                 {
@@ -654,7 +768,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-11T07:11:09+00:00"
+            "time": "2024-03-07T15:38:35+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -3288,7 +3402,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webdeveric/http-api-debug.git",
-                "reference": "8a1d5037a89d3395a9a20837baf0407a99e668c5"
+                "reference": "909536fb63c78fa7036b73138de7b4d009b6994d"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3302,7 +3416,13 @@
                 }
             ],
             "description": "Hook into the http_api_debug action to see the HTTP requests your site is making.",
-            "time": "2024-03-01T03:32:32+00:00"
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/webdeveric/"
+                }
+            ],
+            "time": "2024-03-08T13:21:40+00:00"
         },
         {
             "name": "wpackagist-plugin/what-template-am-i-using",
