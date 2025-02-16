@@ -1,6 +1,6 @@
 FROM php:8.3-apache
 
-LABEL maintainer "eric@webdeveric.com"
+LABEL maintainer="eric@webdeveric.com"
 LABEL com.webdeveric.wp-starter.service-id=wp-starter
 LABEL com.webdeveric.wp-starter.component-id=wp-starter-web
 
