@@ -1,4 +1,4 @@
-FROM php:8.3-apache
+FROM php:8.5-apache
 
 LABEL maintainer="eric@webdeveric.com"
 LABEL com.webdeveric.wp-starter.service-id=wp-starter
@@ -7,22 +7,26 @@ LABEL com.webdeveric.wp-starter.component-id=wp-starter-web
 ENV APP_ENV=production
 
 RUN \
-  apt-get update && apt-get install -y \
+  apt-get update && apt-get install -y --no-install-recommends \
     libfreetype6 \
     libfreetype6-dev \
     libicu-dev \
     libxslt1-dev \
-    libjpeg-dev \
+    libjpeg62-turbo-dev \
     libpng-dev \
     libwebp-dev \
     libxpm-dev \
-    libxslt1.1 \
-    libzip-dev \
-    --no-install-recommends && \
-  docker-php-ext-configure gd --with-webp --with-jpeg --with-xpm --with-freetype && \
-  docker-php-ext-install -j$(nproc) exif gd iconv intl mysqli opcache pdo_mysql xsl zip && \
+    libzip-dev
+
+RUN docker-php-ext-configure gd --with-webp --with-jpeg --with-xpm --with-freetype
+
+RUN docker-php-ext-install -j$(nproc) exif gd iconv intl mysqli pdo_mysql xsl zip
+
+RUN \
   pecl channel-update pecl.php.net && \
-  pecl install xdebug-3.3.1 && \
+  pecl install xdebug-3.5.0
+
+RUN \
   apt-get purge -y --auto-remove \
     libfreetype6-dev \
     libicu-dev \
