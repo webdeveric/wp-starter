@@ -76,7 +76,7 @@
     "sort-packages": true,
     "preferred-install": "dist",
     "platform": {
-      "php": "8.3"
+      "php": "8.5"
     },
     "allow-plugins": {
       "composer/installers": true,
@@ -89,11 +89,11 @@
   "prefer-stable": true,
   "require": {
     "php": ">=8",
-    "johnpbloch/wordpress": "^6.6.0",
+    "johnpbloch/wordpress": "^6.9.1",
     "webdeveric/current-screen-info": "^0.3.1",
     "webdeveric/wp-delete-posts": "dev-master",
     "webdeveric/sample-plugin": "^1.0.0",
-    "webdeveric/wordpress-install-fixer": "^2.0.0",
+    "webdeveric/wordpress-install-fixer": "^3.0.0",
     "webdeveric/wordpress-muplugin-installer": "^3.0.1",
     "webdeveric/wp-starter-theme-directory": "*",
     "webdeveric/wp-tweaks": "^2.0.1",
@@ -102,11 +102,11 @@
   },
   "require-dev": {
     "phpmd/phpmd": "^2.6.0",
-    "phpunit/phpunit": "^11.0.3",
-    "squizlabs/php_codesniffer": "^3.1.0",
+    "phpunit/phpunit": "^13.0.5",
+    "squizlabs/php_codesniffer": "^4.0.1",
     "webdeveric/http-api-debug": "dev-master",
     "wpackagist-plugin/what-template-am-i-using": "^0.2.0",
-    "wpackagist-plugin/wordpress-importer": "^0.8.2",
+    "wpackagist-plugin/wordpress-importer": "^0.9.5",
     "wpackagist-theme/twentynineteen": "^3.0.0",
     "wpackagist-theme/twentytwentyfour": "^1.0.0",
     "wpackagist-theme/twentytwentyfive": "^1.0.0"
