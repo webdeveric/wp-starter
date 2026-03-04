@@ -88,7 +88,7 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": ">=8",
+    "php": ">=8.5",
     "johnpbloch/wordpress": "^6.9.1",
     "webdeveric/current-screen-info": "^0.3.1",
     "webdeveric/wp-delete-posts": "dev-master",
