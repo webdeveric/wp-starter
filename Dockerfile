@@ -10,7 +10,9 @@ RUN \
   apt-get update && apt-get install -y --no-install-recommends \
     libfreetype6 \
     libfreetype6-dev \
+    libicu76 \
     libicu-dev \
+    libxslt1.1 \
     libxslt1-dev \
     libjpeg62-turbo-dev \
     libpng-dev \

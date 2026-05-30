@@ -89,7 +89,7 @@
   "prefer-stable": true,
   "require": {
     "php": ">=8.5",
-    "johnpbloch/wordpress": "^6.9.1",
+    "johnpbloch/wordpress": "^7.0.0",
     "webdeveric/current-screen-info": "^0.3.1",
     "webdeveric/wp-delete-posts": "dev-master",
     "webdeveric/sample-plugin": "^1.0.0",

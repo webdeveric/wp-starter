@@ -1,11 +1,25 @@
 {
   "version": "0.2",
   "words": [
+    "a2enconf",
+    "a2enmod",
+    "cachegrind",
+    "chgrp",
     "CODEOWNERS",
-    "siteurl"
+    "docker-entrypoint-initdb.d",
+    "filesize",
+    "muplugin",
+    "mysqldump",
+    "nosniff",
+    "opcache",
+    "Packagist",
+    "phar",
+    "phpcs",
+    "phpmd",
+    "siteurl",
+    "vhost",
+    "webdeveric",
+    "xprofiler"
   ],
-  "ignorePaths": [
-    "./composer.json",
-    "./composer.lock"
-  ]
+  "ignorePaths": ["./composer.json", "./composer.lock", "*.css", "*.sql"]
 }

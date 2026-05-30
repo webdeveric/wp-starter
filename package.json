@@ -1,0 +1,16 @@
+{
+  "name": "@webdeveric/wp-starter",
+  "private": true,
+  "version": "0.0.0-development",
+  "description": "WP Starter",
+  "author": "Eric King <eric@webdeveric.com> (https://webdeveric.com/)",
+  "license": "GPL-3.0-or-later",
+  "keywords": [],
+  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1",
+  "scripts": {
+    "spellcheck": "cspell './{.github,docker,hooks,packages,tests}/**/*' './*.{md,mjs,mts}' './package.json' --no-progress"
+  },
+  "devDependencies": {
+    "cspell": "10.0.0"
+  }
+}
